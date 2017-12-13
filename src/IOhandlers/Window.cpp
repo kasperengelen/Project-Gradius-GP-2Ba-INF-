@@ -2,29 +2,34 @@
 // @brief Implementation of GameWindow.hpp
 //=================================================
 
-#include "../IO_handlers/GameWindow.hpp"
+#include "Window.hpp"
 
 namespace game {
-namespace IO_handlers {
+namespace IOhandlers {
 
-GameWindow::GameWindow(const std::string& window_title,
+Window::Window(const std::string& window_title,
 		               const unsigned int dim_width,
 					   const unsigned int dim_height)
-	: m_window(sf::VideoMode{dim_width, dim_height}, window_title)
+	: m_window{sf::VideoMode{dim_width, dim_height}, window_title}
 {}
 
-void GameWindow::clear(void)
+void Window::clear(void)
 {
 	m_window.clear();
 	m_window.display();
 }
 
-void GameWindow::swap_buffers(void)
+void Window::swap_buffers(void)
 {
 	m_window.display();
 }
 
+bool Window::poll_event(sf::Event& ev)
+{
+	return m_window.pollEvent(ev);
+}
 
-}} // namespace game::IO_handlers
+
+}} // namespace game::IOhandlers
 
 

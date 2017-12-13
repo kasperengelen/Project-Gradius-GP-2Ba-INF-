@@ -6,11 +6,12 @@
 cmake_minimum_required (VERSION 3.5)
 
 # -- PROJECT SETTINGS --
-set(PROJECT_NAME GP Project)
+set(PROJECT_NAME "GP Project")
 set(BIN_NAME GP_PROJECT_EXEC)
 
 # -- COMPILER FLAGS --
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_STATIC_LINKER_FLAGS "-lsfml-system -lsfml-window -lsfml-graphics")
 
 # -- SOURCE FILE DISCOVERY SETTINGS --
 # Set to 'AUTO' for recursive search, or 'MAN' for manually specified CMakeLists.txt

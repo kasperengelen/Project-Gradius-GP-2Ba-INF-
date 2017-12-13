@@ -5,8 +5,8 @@
  *      Author: kasper
  */
 
-#ifndef INCLUDED_BASEEXCEPTION_HPP
-#define INCLUDED_BASEEXCEPTION_HPP
+#ifndef INCLUDED_EXCEPTION_BASEEXCEPTION_HPP
+#define INCLUDED_EXCEPTION_BASEEXCEPTION_HPP
 
 #include <exception>
 #include <string>
@@ -89,4 +89,4 @@ public:
 
 
 
-#endif // INCLUDED_BASEEXCEPTION_HPP
+#endif // INCLUDED_EXCEPTION_BASEEXCEPTION_HPP
