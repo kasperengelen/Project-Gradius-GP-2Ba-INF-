@@ -5,25 +5,117 @@
 #ifndef IOHANDLERS_KEYBOARD_HPP
 #define IOHANDLERS_KEYBOARD_HPP
 
+#include <SFML/Window/Keyboard.hpp>
 #include <map>
 
 namespace game {
 namespace IOhandlers {
 
 /**
- * @brief Class that encapsulates the keyboard and provides access to information about keypresses.
+ * @brief Class that encapsulates the keyboard.
  */
 class Keyboard
 {
-private:
+public:
+	/**
+	 * @brief Contains the state of a Key
+	 */
 	struct KeyState
 	{
 		bool pressed;
 		bool update_processed;
 	};
 
-	//todo encapsulate sfml keys?
-	std::map</*keycode*/ int, KeyState> m_keymap;
+	/**
+	 * @brief Enum for key codes.
+	 */
+	enum class KeyCode
+	{
+		UNKNOWN = -1,
+		A = 0,
+		B, /* equals 1 */
+		C, /* equals 2 */
+		D, /* ... */
+		E,
+		F,
+		G,
+		H,
+		I,
+		J,
+		K,
+		L,
+		M,
+		N,
+		O,
+		P,
+		Q,
+		R,
+		S,
+		T,
+		U,
+		V,
+		W,
+		X,
+		Y,
+		Z,
+		ESCAPE,
+		SPACE,
+		ENTER,
+		TAB,
+		LCTRL,
+		RCTRL,
+		LSHIFT,
+		RSHIFT,
+		LALT,
+		RALT,
+		UP,
+		DOWN,
+		LEFT,
+		RIGHT,
+		Num0,
+		Num1,
+		Num2,
+		Num3,
+		Num4,
+		Num5,
+		Num6,
+		Num7,
+		Num8,
+		Num9,
+		Numpad0,
+		Numpad1,
+		Numpad2,
+		Numpad3,
+		Numpad4,
+		Numpad5,
+		Numpad6,
+		Numpad7,
+		Numpad8,
+		Numpad9,
+		F1,
+		F2,
+		F3,
+		F4,
+		F5,
+		F6,
+		F7,
+		F8,
+		F9,
+		F10,
+		F11,
+		F12,
+
+		NR_OF_KEYS
+	};
+
+	/**
+	 * @brief Given an SFML keycode, translate to our keycode system.
+	 */
+	static const KeyCode translate_keycode_from_sfml(const sf::Keyboard::Key& key_code);
+
+private:
+	std::map<KeyCode, KeyState> m_keymap;
+
 public:
 	Keyboard(void);
 

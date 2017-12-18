@@ -9,50 +9,48 @@ namespace IOhandlers {
 namespace IOEvent {
 
 IOEvent::IOEvent(const sf::Event& ev)
+	: m_type{}, m_key{}, m_mousebutton{}, m_mouselocation{0,0}
 {
-
 	switch(ev.type)
 	{
 	case sf::Event::EventType::KeyPressed:
 		m_type = EventType::KEY_DOWN;
-
-		// assign key id
+		m_key = Keyboard::translate_keycode_from_sfml(ev.key.code);
 
 		break;
 
 	case sf::Event::EventType::KeyReleased:
 		m_type = EventType::KEY_UP;
-
-		// assign key id
+		m_key = Keyboard::translate_keycode_from_sfml(ev.key.code);
 
 		break;
 
 	case sf::Event::EventType::MouseButtonReleased:
 		m_type = EventType::MOUSE_UP;
-
-		// assign button id
+		m_mousebutton = Mouse::translate_buttoncode_from_sfml(ev.mouseButton.button);
+		m_mouselocation = {ev.mouseMove.x, ev.mouseMove.y};
 
 		break;
 
 	case sf::Event::EventType::MouseButtonPressed:
 		m_type = EventType::MOUSE_DOWN;
-
-		// assign button id
+		m_mousebutton = Mouse::translate_buttoncode_from_sfml(ev.mouseButton.button);
+		m_mouselocation = {ev.mouseMove.x, ev.mouseMove.y};
 
 		break;
 
 	case sf::Event::EventType::MouseMoved:
 		m_type = EventType::MOUSE_MOVE;
-
 		m_mouselocation = {ev.mouseMove.x, ev.mouseMove.y};
 
 		break;
 
 	case sf::Event::EventType::Closed:
+		m_type = EventType::WINDOW_CLOSE;
 		break;
 
 	default:
-		// raise exception
+		//TODO create exception
 		break;
 	}
 }
@@ -78,22 +76,22 @@ bool IOEvent::is_useful(const sf::Event::EventType& type)
 	}
 }
 
-IOEvent::EventType IOEvent::get_type(void) const
+const IOEvent::EventType IOEvent::get_type(void) const
 {
 	return m_type;
 }
 
-IOEvent::Key IOEvent::get_key(void) const
+const Keyboard::KeyCode IOEvent::get_key(void) const
 {
 	return m_key;
 }
 
-IOEvent::MouseButton IOEvent::get_mouse_button(void) const
+const IOEvent::MouseButton IOEvent::get_mouse_button(void) const
 {
 	return m_mousebutton;
 }
 
-IOEvent::CursorLocation IOEvent::get_mouse_movement(void) const
+const IOEvent::CursorLocation IOEvent::get_mouse_movement(void) const
 {
 	return m_mouselocation;
 }

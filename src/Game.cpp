@@ -43,13 +43,12 @@ void Game::run(void)
 			if(ev.type == sf::Event::Closed)
 				running = false;
 
-			// todo send event to controller
+			// TODO change to our event class.
 			controller->handle_event(ev);
 		}
 
 		while(timer.is_tick_needed())
 		{
-			// todo check if ok
 			controller->handle_tick();
 			timer.report_tick_done();
 		}

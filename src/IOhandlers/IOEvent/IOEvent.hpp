@@ -5,6 +5,8 @@
 #ifndef INCLUDED_IOHANDLERS_IOEVENT_IOEVENT_HPP
 #define INCLUDED_IOHANDLERS_IOEVENT_IOEVENT_HPP
 
+#include "../Keyboard.hpp"
+
 #include <SFML/Window.hpp>
 
 namespace game {
@@ -31,86 +33,6 @@ public:
 	};
 
 	/**
-	 * @brief Enumeration of keys.
-	 */
-	enum class Key
-	{
-		UNKNOWN = -1,
-		A = 0,
-		B, /* equals 1 */
-		C, /* equals 2 */
-		D, /* ... */
-		E,
-		F,
-		G,
-		H,
-		I,
-		J,
-		K,
-		L,
-		M,
-		N,
-		O,
-		P,
-		Q,
-		R,
-		S,
-		T,
-		U,
-		V,
-		W,
-		X,
-		Y,
-		Z,
-		ESCAPE,
-		SPACE,
-		ENTER,
-		TAB,
-		LCTRL,
-		RCTRL,
-		LSHIFT,
-		RSHIFT,
-		LALT,
-		RALT,
-		UP,
-		DOWN,
-		LEFT,
-		RIGHT,
-		Num0,
-		Num1,
-		Num2,
-		Num3,
-		Num4,
-		Num5,
-		Num6,
-		Num7,
-		Num8,
-		Num9,
-		Numpad0,
-		Numpad1,
-		Numpad2,
-		Numpad3,
-		Numpad4,
-		Numpad5,
-		Numpad6,
-		Numpad7,
-		Numpad8,
-		Numpad9,
-		F1,
-		F2,
-		F3,
-		F4,
-		F5,
-		F6,
-		F7,
-		F8,
-		F9,
-		F10,
-		F11,
-		F12
-	};
-
-	/**
 	 * @brief Enumeration of Mouse buttons
 	 */
 	enum class MouseButton
@@ -125,13 +47,13 @@ public:
 	 */
 	struct CursorLocation
 	{
-		int x;
-		int y;
+		int x{0};
+		int y{0};
 	};
 private:
 	EventType m_type;
 
-	Key m_key;
+	Keyboard::KeyCode m_key;
 
 	MouseButton m_mousebutton;
 
@@ -152,22 +74,22 @@ public:
 	/**
 	 * @brief Retrieve the type of the IOEvent.
 	 */
-	EventType get_type(void) const;
+	const EventType get_type(void) const;
 
 	/**
 	 * @brief Retrieve the id of the key.
 	 */
-	Key get_key(void) const;
+	const Keyboard::KeyCode get_key(void) const;
 
 	/**
 	 * @brief Retrieve the id of the mousebutton.
 	 */
-	MouseButton get_mouse_button(void) const;
+	const MouseButton get_mouse_button(void) const;
 
 	/**
 	 * @brief Retrieve the new location of the cursor.
 	 */
-	CursorLocation get_mouse_movement(void) const;
+	const CursorLocation get_mouse_movement(void) const;
 };
 
 }}} // namespace game::IOhandlers::IOEvent

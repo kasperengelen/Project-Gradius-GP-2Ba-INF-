@@ -10,7 +10,6 @@
 #include <iostream>
 #include <string>
 
-
 /**
  * @brief Main function.
  */
