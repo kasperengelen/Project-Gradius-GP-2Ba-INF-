@@ -19,29 +19,6 @@ public:
 	IOEventBase(/* event type */);
 };
 
-class KeyboardEvent: public IOEventBase
-{
-	// key id
-	// key up, key down
-};
-
-class MouseEvent: public IOEventBase
-{
-
-};
-
-class MouseMoveEvent: public IOEventBase
-{
-	// delta_x
-	// delta_y
-};
-
-class MouseClickEvent: public IOEventBase
-{
-	// button_id
-	// click location
-};
-
 }}} // namespace game::IOhandlers::IOEvent
 
 
