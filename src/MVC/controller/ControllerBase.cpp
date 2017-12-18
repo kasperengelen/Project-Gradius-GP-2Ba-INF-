@@ -3,9 +3,12 @@
 //======================================
 
 #include "ControllerBase.hpp"
+#include "../model/ModelBase.hpp"
+using game::MVC::model::ModelBase;
 
 namespace game {
-namespace MVCcontroller {
+namespace MVC {
+namespace controller {
 
 ControllerBase::ControllerBase(const ModelBase::ShrPtr& model_ptr)
 	: m_model(model_ptr)
@@ -14,6 +17,6 @@ ControllerBase::ControllerBase(const ModelBase::ShrPtr& model_ptr)
 ControllerBase::~ControllerBase(void)
 {}
 
-}} // namespace game::MVCcontroller
+}}} // namespace game::MVC::controller
 
 

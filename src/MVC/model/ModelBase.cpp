@@ -5,7 +5,9 @@
 #include "ModelBase.hpp"
 
 namespace game {
-namespace MVCmodel {
+namespace MVC {
+namespace model {
+
 
 ModelBase::ModelBase(void)
 {}
@@ -13,5 +15,5 @@ ModelBase::ModelBase(void)
 ModelBase::~ModelBase(void)
 {}
 
-}} // namespace game::MVCmodel
+}}} // namespace game::MVC::model
 

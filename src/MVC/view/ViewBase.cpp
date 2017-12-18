@@ -5,9 +5,11 @@
 #include "ViewBase.hpp"
 
 namespace game {
-namespace MVCview {
+namespace MVC {
+namespace view {
 
-ViewBase::ViewBase(void)
+ViewBase::ViewBase(const ModelBase::ShrPtr& model_ptr)
+	: m_model(model_ptr)
 {}
 
 ViewBase::~ViewBase(void)
@@ -15,5 +17,5 @@ ViewBase::~ViewBase(void)
 
 
 
-}} // namespace game::MVCview
+}}} // namespace game::MVC::view
 
