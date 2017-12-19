@@ -7,6 +7,7 @@
 
 #include "../model/ModelBase.hpp"
 using game::MVC::model::ModelBase;
+#include "../../IOhandlers/IOEvent.hpp"
 
 #include <SFML/Window.hpp>
 
@@ -44,7 +45,7 @@ public:
 	/**
 	 * @brief Send the specified event to the controller.
 	 */
-	virtual void handle_event(const sf::Event& ev) = 0;
+	virtual void handle_event(const IOhandlers::IOEvent& event) = 0;
 };
 
 }}} // namespace game::MVC::controller

@@ -25,7 +25,7 @@ void GameController::handle_tick(void)
 	m_model->do_game_tick();
 }
 
-void GameController::handle_event(const sf::Event& ev)
+void GameController::handle_event(const IOhandlers::IOEvent& event)
 {
 	std::cout << "CONTROLLER: HANDLING EVENT" << std::endl;
 }

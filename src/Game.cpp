@@ -43,8 +43,10 @@ void Game::run(void)
 			if(ev.type == sf::Event::Closed)
 				running = false;
 
-			// TODO change to our event class.
-			controller->handle_event(ev);
+			// determine if event is useful
+			if (IOhandlers::IOEvent::is_useful(ev.type))
+				controller->handle_event(IOhandlers::IOEvent{ev});
+
 		}
 
 		while(timer.is_tick_needed())

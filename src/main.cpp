@@ -10,18 +10,6 @@
 #include <iostream>
 #include <string>
 
-
-class Temp
-{
-public:
-	enum class t
-	{
-		A,
-		B,
-		C
-	};
-};
-
 /**
  * @brief Main function.
  */

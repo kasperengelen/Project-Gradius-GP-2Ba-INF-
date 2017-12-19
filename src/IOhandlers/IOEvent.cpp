@@ -6,7 +6,6 @@
 
 namespace game {
 namespace IOhandlers {
-namespace IOEvent {
 
 IOEvent::IOEvent(const sf::Event& ev)
 	: m_type{}, m_key{}, m_mousebutton{}, m_mouselocation{0,0}
@@ -97,4 +96,4 @@ const Mouse::CursorLocation IOEvent::get_mouse_movement(void) const
 }
 
 
-}}} // namespace game::IOhandlers::IOEvent
+}} // namespace game::IOhandlers::IOEvent

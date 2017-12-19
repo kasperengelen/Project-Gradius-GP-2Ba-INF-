@@ -38,7 +38,7 @@ public:
 	/**
 	 * @brief Send an event to the controller.
 	 */
-	void handle_event(const sf::Event& ev) override final;
+	void handle_event(const IOhandlers::IOEvent& event) override final;
 };
 
 }}} // namespace game::MVC::controller

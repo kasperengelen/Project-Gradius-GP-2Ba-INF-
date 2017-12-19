@@ -5,14 +5,13 @@
 #ifndef INCLUDED_IOHANDLERS_IOEVENT_IOEVENT_HPP
 #define INCLUDED_IOHANDLERS_IOEVENT_IOEVENT_HPP
 
-#include "../Keyboard.hpp"
-#include "../Mouse.hpp"
+#include "Keyboard.hpp"
+#include "Mouse.hpp"
 
 #include <SFML/Window.hpp>
 
 namespace game {
 namespace IOhandlers {
-namespace IOEvent {
 
 /**
  * @brief Wrapper class for IO events.
@@ -75,6 +74,6 @@ public:
 	const Mouse::CursorLocation get_mouse_movement(void) const;
 };
 
-}}} // namespace game::IOhandlers::IOEvent
+}} // namespace game::IOhandlers::IOEvent
 
 #endif // INCLUDED_IOHANDLERS_IOEVENT_IOEVENT_HPP
