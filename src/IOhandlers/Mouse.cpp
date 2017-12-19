@@ -26,4 +26,32 @@ const Mouse::ButtonCode Mouse::translate_buttoncode_from_sfml(const sf::Mouse::B
 	}
 }
 
+Mouse::Mouse(void)
+	: m_buttonstates {
+		{ButtonCode::LEFT, {}},
+		{ButtonCode::MIDDLE, {}},
+		{ButtonCode::RIGHT, {}}
+	}
+{}
+
+bool Mouse::get_button_state(const ButtonCode& button) const
+{
+	return m_buttonstates.at(button).is_pressed;
+}
+
+bool Mouse::get_button_change_processed(const ButtonCode& button) const
+{
+	return m_buttonstates.at(button).update_processed;
+}
+
+void Mouse::set_button_change_processed(const ButtonCode& button)
+{
+	m_buttonstates.at(button).update_processed = true;
+}
+
+const Mouse::CursorLocation Mouse::get_cursor_location(void) const
+{
+	return m_location;
+}
+
 }} // namespace game::IOhandlers

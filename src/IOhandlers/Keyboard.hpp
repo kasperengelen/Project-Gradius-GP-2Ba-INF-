@@ -7,6 +7,7 @@
 
 #include <SFML/Window/Keyboard.hpp>
 #include <map>
+#include <set>
 
 namespace game {
 namespace IOhandlers {
@@ -117,7 +118,13 @@ private:
 	std::map<KeyCode, KeyState> m_keymap;
 
 public:
-	Keyboard(void);
+	/**
+	 * @brief Constructor.
+	 *
+	 * @param[in] key_codes Set of keycodes that the Keyboard class will keep track of. All other keys
+	 * are ignored.
+	 */
+	Keyboard(const std::set<KeyCode>& key_codes);
 
 	/**
 	 * @brief This prompts the Keyboard class redetermine for all keys whether they are pressed or not.
@@ -130,12 +137,12 @@ public:
 	 * @return True when the key is currently pressed.
 	 * @return False when the key is currently released.
 	 */
-	bool get_key_state(void) const;
+	bool get_key_state(const KeyCode& key_code) const;
 
 	/**
 	 * @brief Determine whether the specified key has had a change in key state that has not been processed.
 	 */
-	bool get_key_change_processed(void) const;
+	bool get_key_change_processed(const KeyCode& key_code) const;
 
 	/**
 	 * @brief Notify the Keyboard class that the change in key state for the specified key has been processed.
@@ -143,7 +150,12 @@ public:
 	 * @throw MissingKeyChange This error is thrown, when a change for a key is marked as processed while there was no change
 	 * to be processed.
 	 */
-	bool set_key_change_processed(void);
+	void set_key_change_processed(const KeyCode& key_code);
+
+	/**
+	 * @brief Determine whether the Keyboard is keeping track of the specified key.
+	 */
+	bool has_key(const KeyCode& key_code) const;
 };
 
 }} // namespace game::IOhandlers

@@ -160,7 +160,7 @@ const Keyboard::KeyCode Keyboard::translate_keycode_from_sfml(const sf::Keyboard
 	}
 }
 
-Keyboard::Keyboard(void)
+Keyboard::Keyboard(const std::set<KeyCode>& key_codes)
 {}
 
 void Keyboard::update_keys(void)
@@ -170,19 +170,24 @@ void Keyboard::update_keys(void)
 
 }
 
-bool Keyboard::get_key_state(void) const
+bool Keyboard::get_key_state(const KeyCode& key_code) const
 {
-	// return keymap(key).state
+	return m_keymap.at(key_code).pressed;
 }
 
-bool Keyboard::get_key_change_processed() const
+bool Keyboard::get_key_change_processed(const KeyCode& key_code) const
 {
-	// return keymap(key).processed
+	return m_keymap.at(key_code).update_processed;
 }
 
-bool Keyboard::set_key_change_processed(void)
+void Keyboard::set_key_change_processed(const KeyCode& key_code)
 {
-	// keymap(key).processed = true
+	m_keymap.at(key_code).update_processed = false;
+}
+
+bool Keyboard::has_key(const KeyCode& key_code) const
+{
+	return m_keymap.count(key_code);
 }
 
 }} // namespace game::IOhandlers

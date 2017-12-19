@@ -86,12 +86,12 @@ const Keyboard::KeyCode IOEvent::get_key(void) const
 	return m_key;
 }
 
-const IOEvent::MouseButton IOEvent::get_mouse_button(void) const
+const Mouse::ButtonCode IOEvent::get_mouse_button(void) const
 {
 	return m_mousebutton;
 }
 
-const IOEvent::CursorLocation IOEvent::get_mouse_movement(void) const
+const Mouse::CursorLocation IOEvent::get_mouse_movement(void) const
 {
 	return m_mouselocation;
 }

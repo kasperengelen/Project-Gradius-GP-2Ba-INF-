@@ -22,8 +22,8 @@ public:
 	 */
 	struct ButtonState
 	{
-		bool is_pressed;
-		bool update_processed;
+		bool is_pressed = false;
+		bool update_processed = true;
 	};
 
 	/**
@@ -50,15 +50,32 @@ public:
 
 private:
 	std::map<ButtonCode, ButtonState> m_buttonstates;
+
+	CursorLocation m_location;
 public:
+	/**
+	 * @brief Mouse constructor.
+	 */
 	Mouse(void);
 
+	/**
+	 * @brief Determine whether the specified mouse button is pressed.
+	 */
 	bool get_button_state(const ButtonCode& button) const;
 
+	/**
+	 * @brief Determine whether the last button press or release was processed.
+	 */
 	bool get_button_change_processed(const ButtonCode& button) const;
 
-	bool set_button_change_processed(const ButtonCode& button) const;
+	/**
+	 * @brief Notify the mouse that the last button press or release has been processed.
+	 */
+	void set_button_change_processed(const ButtonCode& button);
 
+	/**
+	 * @brief Retrieve the location of the cursor.
+	 */
 	const CursorLocation get_cursor_location(void) const;
 };
 

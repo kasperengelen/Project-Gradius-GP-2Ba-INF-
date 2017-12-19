@@ -6,6 +6,7 @@
 #define INCLUDED_IOHANDLERS_IOEVENT_IOEVENT_HPP
 
 #include "../Keyboard.hpp"
+#include "../Mouse.hpp"
 
 #include <SFML/Window.hpp>
 
@@ -32,32 +33,14 @@ public:
 		MOUSE_MOVE    // mouse has moved
 	};
 
-	/**
-	 * @brief Enumeration of Mouse buttons
-	 */
-	enum class MouseButton
-	{
-		LEFT,
-		MIDDLE,
-		RIGHT
-	};
-
-	/**
-	 * @brief Struct that contains the location of the cursor.
-	 */
-	struct CursorLocation
-	{
-		int x{0};
-		int y{0};
-	};
 private:
 	EventType m_type;
 
 	Keyboard::KeyCode m_key;
 
-	MouseButton m_mousebutton;
+	Mouse::ButtonCode m_mousebutton;
 
-	CursorLocation m_mouselocation;
+	Mouse::CursorLocation m_mouselocation;
 
 public:
 	/**
@@ -66,7 +49,7 @@ public:
 	IOEvent(const sf::Event& ev);
 
 	/**
-	 * @brief Determine if the specified sf::Event type is usefull and can be converted to
+	 * @brief Determine if the specified sf::Event type is useful and can be converted to
 	 * an IOEvent.
 	 */
 	static bool is_useful(const sf::Event::EventType& type);
@@ -84,12 +67,12 @@ public:
 	/**
 	 * @brief Retrieve the id of the mousebutton.
 	 */
-	const MouseButton get_mouse_button(void) const;
+	const Mouse::ButtonCode get_mouse_button(void) const;
 
 	/**
 	 * @brief Retrieve the new location of the cursor.
 	 */
-	const CursorLocation get_mouse_movement(void) const;
+	const Mouse::CursorLocation get_mouse_movement(void) const;
 };
 
 }}} // namespace game::IOhandlers::IOEvent
