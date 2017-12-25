@@ -16,7 +16,16 @@ Window::Window(const std::string& window_title,
 void Window::clear(void)
 {
 	m_window.clear();
-	m_window.display();
+}
+
+void Window::draw(const sf::Drawable& drawable)
+{
+	m_window.draw(drawable);
+}
+
+void Window::update_view(void)
+{
+	m_window.setView(sf::View{sf::FloatRect{0,0, m_window.getSize().x, m_window.getSize().y}});
 }
 
 void Window::swap_buffers(void)

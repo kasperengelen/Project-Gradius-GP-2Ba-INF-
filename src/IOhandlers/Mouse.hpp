@@ -22,7 +22,7 @@ public:
 	 */
 	struct ButtonState
 	{
-		bool is_pressed = false;
+		bool is_pressed       = false;
 		bool update_processed = true;
 	};
 
@@ -32,9 +32,9 @@ public:
 	enum class ButtonCode
 	{
 		UNKNOWN = -1,
-		LEFT = 0,
-		MIDDLE,
-		RIGHT
+		LEFT    = 0,
+		MIDDLE  = 1,
+		RIGHT   = 2
 	};
 
 	/**

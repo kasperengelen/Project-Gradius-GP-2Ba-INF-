@@ -2,8 +2,8 @@
 // @brief Header file for IOEvent class.
 //===============================================
 
-#ifndef INCLUDED_IOHANDLERS_IOEVENT_IOEVENT_HPP
-#define INCLUDED_IOHANDLERS_IOEVENT_IOEVENT_HPP
+#ifndef INCLUDED_IOHANDLERS_IOEVENT_HPP
+#define INCLUDED_IOHANDLERS_IOEVENT_HPP
 
 #include "Keyboard.hpp"
 #include "Mouse.hpp"
@@ -76,4 +76,5 @@ public:
 
 }} // namespace game::IOhandlers::IOEvent
 
-#endif // INCLUDED_IOHANDLERS_IOEVENT_IOEVENT_HPP
+#endif // INCLUDED_IOHANDLERS_IOEVENT_HPP
+

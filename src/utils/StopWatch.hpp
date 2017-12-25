@@ -5,7 +5,7 @@
 #ifndef INCLUDED_UTILS_STOPWATCH_HPP
 #define INCLUDED_UTILS_STOPWATCH_HPP
 
-#include "../misc/Singleton.hpp"
+#include "../utils/Singleton.hpp"
 
 #include <chrono>
 

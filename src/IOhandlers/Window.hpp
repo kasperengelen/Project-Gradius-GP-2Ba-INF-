@@ -40,6 +40,16 @@ public:
 	void clear(void);
 
 	/**
+	 * @brief Draw the specified sf::Drawable to the window.
+	 */
+	void draw(const sf::Drawable&);
+
+	/**
+	 * @brief Update the view.
+	 */
+	void update_view(void);
+
+	/**
 	 * @brief Swaps the buffers.
 	 */
 	void swap_buffers(void);
@@ -52,6 +62,7 @@ public:
 	 * @return True if events occurred.
 	 * @return False if no events occurred.
 	 */
+	// TODO convert to IOEvent?
 	bool poll_event(sf::Event& ev);
 };
 

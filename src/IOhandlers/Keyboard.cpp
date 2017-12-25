@@ -160,14 +160,26 @@ const Keyboard::KeyCode Keyboard::translate_keycode_from_sfml(const sf::Keyboard
 	}
 }
 
-Keyboard::Keyboard(const std::set<KeyCode>& key_codes)
-{}
-
-void Keyboard::update_keys(void)
+Keyboard::Keyboard(void)
 {
-	// iterate over keymap
-	//    value = is_pressed(key)
+	// iterate over enum and convert to int
+	for(int i = 0; i < (int) KeyCode::NR_OF_KEYS; i++)
+	{
+		// convert back to enum and initialize
+		m_keymap.insert({(KeyCode) i, {}});
+	}
+}
 
+void Keyboard::press_key(const KeyCode& key_code)
+{
+	m_keymap.at(key_code).pressed = true;
+	m_keymap.at(key_code).update_processed = false;
+}
+
+void Keyboard::release_key(const KeyCode& key_code)
+{
+	m_keymap.at(key_code).pressed = false;
+	m_keymap.at(key_code).update_processed = false;
 }
 
 bool Keyboard::get_key_state(const KeyCode& key_code) const

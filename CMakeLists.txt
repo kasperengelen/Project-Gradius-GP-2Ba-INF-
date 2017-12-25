@@ -10,7 +10,7 @@ set(PROJECT_NAME "GP Project")
 set(BIN_NAME GP_PROJECT_EXEC)
 
 # -- COMPILER FLAGS --
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_STATIC_LINKER_FLAGS "-lsfml-system -lsfml-window -lsfml-graphics")
 
 # -- SOURCE FILE DISCOVERY SETTINGS --
@@ -19,10 +19,10 @@ set(FILE_DISCOVERY_MODE "AUTO")
 
 # -- SPECIFY SUBDIR LOCATIONS --
 # NOTE ALL RELATIVE TO BUILD DIRECTORY!
-set(BIN_DIR "../bin")        # output dir for binaries
-set(SOURCE_DIR "./src")  # dir where to find source files
+set(BIN_DIR "../bin")   # output dir for binaries
+set(SOURCE_DIR "./src") # dir where to find source files
 
-# -- TECHNICAL STUFF DON'T TOUCH --
+# -- GUARD TO PREVENT IN SOURCE BUILDS --
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR} )
     message(WARNING "You're trying to run an in-source build. This will pollute the project with CMake build files. CMake will now restart with arguments:
                         cmake -H. -B${BUILD_DIR}")
@@ -33,9 +33,11 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR} )
     message(FATAL_ERROR "CMake finished out-of-source build. Ignore this error.")
 endif()
 
+# -- SET PROJECT NAME AND OUTPUT DIR --
 project(${PROJECT_NAME})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR}) # set output dir for executables to "./bin/"
 
+# -- FIND SOURCE FILES --
 if(FILE_DISCOVERY_MODE STREQUAL "AUTO")
     file(GLOB_RECURSE SOURCE_FILES "${SOURCE_DIR}/*.cpp")
     message("USING AUTOMATIC SOURCE FILE DISCOVERY.")
@@ -47,4 +49,24 @@ else()
     return()
 endif()
 
+# -- EXPAND MODULE PATH TO ACCOMODATE FOR SFML --
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules/")
+
+# -- FIND SFML LIBRARY --
+find_package(SFML 2 COMPONENTS system window graphics)
+
+# -- INCLUDE SFML --
+include_directories(${SFML_INCLUDE_DIR})
+
 add_executable(${BIN_NAME} ${SOURCE_FILES})
+
+# -- LINK SFML --
+target_link_libraries(${BIN_NAME} ${SFML_LIBRARIES})
+
+
+
+
+
+
+
+

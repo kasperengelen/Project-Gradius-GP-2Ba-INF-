@@ -5,8 +5,9 @@
 #ifndef INCLUDED_MVC_CONTROLLER_GAMECONTROLLER_HPP
 #define INCLUDED_MVC_CONTROLLER_GAMECONTROLLER_HPP
 
-#include "../controller/ControllerBase.hpp"
 #include "../model/GameModel.hpp"
+#include "EntityController.hpp"
+#include "../../IOhandlers/Keyboard.hpp"
 
 namespace game {
 namespace MVC {
@@ -15,11 +16,15 @@ namespace controller {
 /**
  * @brief Controller class that encompasses the entire controller component of the game.
  */
-class GameController final: public ControllerBase
+class GameController final
 {
 private:
+	model::GameModel::ShrPtr m_model;
+	std::vector<EntityController::UnqPtr> m_entity_controllers;
 
 public:
+	using UnqPtr = std::unique_ptr<GameController>;
+
 	/**
 	 * @brief Controller specifying a pointer to a model.
 	 */
@@ -33,12 +38,16 @@ public:
 	/**
 	 * @brief Notify the controller that a game tick has to be performed.
 	 */
-	void handle_tick(void) override final;
+	void handle_tick(void);
 
 	/**
 	 * @brief Send an event to the controller.
 	 */
-	void handle_event(const IOhandlers::IOEvent& event) override final;
+	void handle_event(const IOhandlers::IOEvent& event);
+
+	//TODO REMOVE DEBUG
+	void debug_add_entity_controller(EntityController::UnqPtr entity_controller_ptr);
+
 };
 
 }}} // namespace game::MVC::controller

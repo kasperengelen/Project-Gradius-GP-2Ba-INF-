@@ -5,6 +5,7 @@
 #ifndef IOHANDLERS_KEYBOARD_HPP
 #define IOHANDLERS_KEYBOARD_HPP
 
+#include "../utils/Singleton.hpp"
 #include <SFML/Window/Keyboard.hpp>
 #include <map>
 #include <set>
@@ -15,7 +16,7 @@ namespace IOhandlers {
 /**
  * @brief Class that encapsulates the keyboard.
  */
-class Keyboard
+class Keyboard: public game::misc::Singleton<Keyboard>
 {
 public:
 	/**
@@ -23,8 +24,8 @@ public:
 	 */
 	struct KeyState
 	{
-		bool pressed;
-		bool update_processed;
+		bool pressed          = false;
+		bool update_processed = true;
 	};
 
 	/**
@@ -115,21 +116,23 @@ public:
 	static const KeyCode translate_keycode_from_sfml(const sf::Keyboard::Key& key_code);
 
 private:
-	std::map<KeyCode, KeyState> m_keymap;
+	friend Singleton;
+	Keyboard(void);
+	virtual ~Keyboard(void) = default;
+	Keyboard(const Keyboard&) = delete;
+	Keyboard& operator=(const Keyboard&) = delete;
 
+	std::map<KeyCode, KeyState> m_keymap;
 public:
 	/**
-	 * @brief Constructor.
-	 *
-	 * @param[in] key_codes Set of keycodes that the Keyboard class will keep track of. All other keys
-	 * are ignored.
+	 * @brief Mark the key as pressed.
 	 */
-	Keyboard(const std::set<KeyCode>& key_codes);
+	void press_key(const KeyCode& key_code);
 
 	/**
-	 * @brief This prompts the Keyboard class redetermine for all keys whether they are pressed or not.
+	 * @brief Mark the key as unpressed.
 	 */
-	void update_keys(void);
+	void release_key(const KeyCode& key_code);
 
 	/**
 	 * @brief Determine whether the specified key is pressed.

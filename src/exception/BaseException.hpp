@@ -33,14 +33,14 @@ protected:
 	 * @param[in] identifier std::string containing the identifier of the exception. The identifier specifies what role the exception plays in the hierarchy.
 	 */
 	BaseException(const std::string& identifier)
-		: m_except_identifier("EXCEPT::" + identifier), m_reason(""), m_full_message(m_except_identifier)
+		: m_except_identifier{"EXCEPT::" + identifier}, m_reason{""}, m_full_message{m_except_identifier}
 	{}
 
 	/**
 	 * @brief Constructor for when both the reason and the identifier for the exception is known. The what method will return "EXCEPT::<identifier>::<reason>"
 	 */
 	BaseException(const std::string& identifier, const std::string& reason)
-		: m_except_identifier("EXCEPT::" + identifier), m_reason(reason), m_full_message(m_except_identifier + "::" + reason)
+		: m_except_identifier{"EXCEPT::" + identifier}, m_reason{reason}, m_full_message{m_except_identifier + "::" + reason}
 	{}
 
 public:
