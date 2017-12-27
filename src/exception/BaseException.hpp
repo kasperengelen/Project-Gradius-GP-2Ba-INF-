@@ -1,9 +1,6 @@
-/*
- * BaseException.hpp
- *
- *  Created on: Nov 15, 2017
- *      Author: kasper
- */
+//=============================================
+// @brief Header file for BaseException class.
+//=============================================
 
 #ifndef INCLUDED_EXCEPTION_BASEEXCEPTION_HPP
 #define INCLUDED_EXCEPTION_BASEEXCEPTION_HPP
@@ -14,6 +11,9 @@
 namespace game {
 namespace exception {
 
+/**
+ * @brief Base class for all exceptions.
+ */
 class BaseException: public std::exception
 {
 private:
@@ -83,10 +83,7 @@ public:
 	}
 };
 
-}
-} // namespace game::exception
-
-
-
+}} // namespace game::exception
 
 #endif // INCLUDED_EXCEPTION_BASEEXCEPTION_HPP
+

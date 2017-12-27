@@ -6,8 +6,8 @@
 #define INCLUDED_MVC_CONTROLLER_GAMECONTROLLER_HPP
 
 #include "../model/GameModel.hpp"
-#include "EntityController.hpp"
 #include "../../IOhandlers/Keyboard.hpp"
+#include "../../IOhandlers/IOEvent.hpp"
 
 namespace game {
 namespace MVC {
@@ -20,7 +20,7 @@ class GameController final
 {
 private:
 	model::GameModel::ShrPtr m_model;
-	std::vector<EntityController::UnqPtr> m_entity_controllers;
+	//std::vector<EntityController::UnqPtr> m_entity_controllers;
 
 public:
 	using UnqPtr = std::unique_ptr<GameController>;
@@ -33,7 +33,7 @@ public:
 	/**
 	 * @brief Destructor.
 	 */
-	virtual ~GameController(void);
+	~GameController(void);
 
 	/**
 	 * @brief Notify the controller that a game tick has to be performed.
@@ -46,7 +46,7 @@ public:
 	void handle_event(const IOhandlers::IOEvent& event);
 
 	//TODO REMOVE DEBUG
-	void debug_add_entity_controller(EntityController::UnqPtr entity_controller_ptr);
+	//void debug_add_entity_controller(EntityController::UnqPtr entity_controller_ptr);
 
 };
 

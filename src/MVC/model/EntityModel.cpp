@@ -1,6 +1,6 @@
-//==================================================
-// @brief Implementation of EntityModel.hpp
-//==================================================
+//==========================================
+// @brief Implementation of EntityModel.cpp
+//==========================================
 
 #include "EntityModel.hpp"
 
@@ -8,31 +8,21 @@ namespace game {
 namespace MVC {
 namespace model {
 
-EntityModel::EntityModel(void)
-	: m_position{0.0f,0.0f}, m_direction{0.0f,0.0f}
+EntityModel::EntityModel(const sf::Vector2f& pos)
+	: m_pos{pos}
 {}
 
 EntityModel::~EntityModel(void)
 {}
 
-const sf::Vector2f EntityModel::get_position(void) const
+const sf::Vector2f& EntityModel::get_position(void) const
 {
-	return m_position;
+	return m_pos;
 }
 
 void EntityModel::set_position(const sf::Vector2f& pos)
 {
-	m_position = pos;
-}
-
-const sf::Vector2f EntityModel::get_direction(void) const
-{
-	return m_direction;
-}
-
-void EntityModel::set_direction(const sf::Vector2f& dir)
-{
-	m_direction = dir;
+	m_pos = pos;
 }
 
 }}} // namespace game::MVC::model

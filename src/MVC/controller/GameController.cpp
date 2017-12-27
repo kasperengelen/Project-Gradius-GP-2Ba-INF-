@@ -42,10 +42,12 @@ void GameController::handle_tick(void)
 		std::cout << "GO DOWN" << std::endl;
 	}
 
+	/*
 	for(const auto& ent_ctrl: m_entity_controllers)
 	{
 		ent_ctrl->handle_tick();
 	}
+	*/
 
 	m_model->do_game_tick();
 }
@@ -89,16 +91,19 @@ void GameController::handle_event(const IOhandlers::IOEvent& event)
 	}
 
 	// forward event to sub controllers.
+	/*
 	for(const auto& ent_ctrl: m_entity_controllers)
 	{
 		ent_ctrl->handle_event(event);
 	}
+	*/
 }
-
+/*
 void GameController::debug_add_entity_controller(EntityController::UnqPtr entity_controller_ptr)
 {
 	m_entity_controllers.push_back(std::move(entity_controller_ptr));
 }
+*/
 
 }}} // namespace game::MVC::controller
 

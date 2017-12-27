@@ -1,47 +1,55 @@
-//==============================================
-// @brief Header file for PlayerModel class
-//==============================================
+//================================================
+// @brief Header file for PlayerModel class.
+//================================================
 
-#ifndef MVC_MODEL_PLAYERMODEL_HPP
-#define MVC_MODEL_PLAYERMODEL_HPP
+#ifndef INCLUDED_MVC_MODEL_PLAYERMODEL_HPP
+#define INCLUDED_MVC_MODEL_PLAYERMODEL_HPP
 
-#include "EntityModel.hpp"
-
-#include <memory>
+#include "DynEntityModel.hpp"
 
 namespace game {
 namespace MVC {
 namespace model {
 
-class PlayerModel: public EntityModel
+/**
+ * @brief Model class for Player entity.
+ */
+class PlayerModel final : public DynEntityModel
 {
 private:
+	int m_lives;
 public:
 	using ShrPtr = std::shared_ptr<PlayerModel>;
 
 	/**
-	 * @brief Constructor.
+	 * @brief Constructor based on a position, direction vector and a number of lives.
 	 *
-	 * @post The constructor entity will be located at (0,0).
 	 */
-	PlayerModel(void);
-
-	/**
-	 * @brief Constructor based on a position.
-	 */
-	PlayerModel(const sf::Vector2f& pos);
+	PlayerModel(const sf::Vector2f& pos, const sf::Vector2f& dir, const int lives);
 
 	/**
 	 * @brief Destructor.
 	 */
-	virtual ~PlayerModel(void);
+	~PlayerModel(void);
 
 	/**
-	 * @brief Perform a game tick on the player model.
+	 * @brief Retrieve the amount of lives the player has.
+	 */
+	int get_lives(void) const;
+
+	/**
+	 * @brief Set the mount of lives the player has.
+	 */
+	void set_lives(const int lives);
+
+	/**
+	 * @brief Perform a game tick.
 	 */
 	void do_game_tick(void) override;
+
 };
 
 }}} // namespace game::MVC::model
 
-#endif // MVC_MODEL_PLAYERMODEL_HPP
+#endif // INCLUDED_MVC_MODEL_PLAYERMODEL_HPP
+

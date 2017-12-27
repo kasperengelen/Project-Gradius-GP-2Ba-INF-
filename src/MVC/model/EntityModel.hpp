@@ -1,11 +1,12 @@
-//==================================================
+//===================================================
 // @brief Header file for EntityModel class.
-//==================================================
+//===================================================
 
-#ifndef MVC_MODEL_ENTITYMODEL_HPP
-#define MVC_MODEL_ENTITYMODEL_HPP
+#ifndef INCLUDED_MVC_MODEL_ENTITYMODEL_HPP
+#define INCLUDED_MVC_MODEL_ENTITYMODEL_HPP
 
 #include <SFML/Graphics.hpp>
+
 #include <memory>
 
 namespace game {
@@ -13,23 +14,20 @@ namespace MVC {
 namespace model {
 
 /**
- * @brief Base class for EntityModels
+ * @brief Base class for all entity models. This represents an Entity that has a position.
  */
 class EntityModel
 {
-protected:
-	sf::Vector2f m_position;  // current position of the entity.
-	sf::Vector2f m_direction; // direction and speed the entity.
+private:
+	sf::Vector2f m_pos; // current position in world
 
 public:
 	using ShrPtr = std::shared_ptr<EntityModel>;
 
 	/**
-	 * @brief Constructor.
-	 *
-	 * @post The constructor entity will be located at (0,0).
+	 * @brief Constructor for an EntityModel based on a position.
 	 */
-	EntityModel(void);
+	EntityModel(const sf::Vector2f& pos);
 
 	/**
 	 * @brief Destructor.
@@ -37,14 +35,9 @@ public:
 	virtual ~EntityModel(void);
 
 	/**
-	 * @brief Handle a game tick.
-	 */
-	virtual void do_game_tick(void) = 0;
-
-	/**
 	 * @brief Retrieve the position of the entity.
 	 */
-	const sf::Vector2f get_position(void) const;
+	const sf::Vector2f& get_position(void) const;
 
 	/**
 	 * @brief Set the position of the entity.
@@ -52,17 +45,14 @@ public:
 	void set_position(const sf::Vector2f& pos);
 
 	/**
-	 * @brief Retrieve the direction vector of the entity.
+	 * @brief Handle a game tick.
 	 */
-	const sf::Vector2f get_direction(void) const;
-
-	/**
-	 * @brief Set the the direction vector of the entity.
-	 */
-	void set_direction(const sf::Vector2f& dir);
+	virtual void do_game_tick(void) = 0;
 
 };
 
+
 }}} // namespace game::MVC::model
 
-#endif // MVC_MODEL_ENTITYMODEL_HPP
+#endif // INCLUDED_MVC_MODEL_ENTITYMODEL_HPP
+

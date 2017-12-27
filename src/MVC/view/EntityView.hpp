@@ -1,46 +1,43 @@
-//==================================================
+//======================================
 // @brief Header file for EntityView class.
-//==================================================
+//======================================
 
-#ifndef MVC_VIEW_ENTITYVIEW_HPP
-#define MVC_VIEW_ENTITYVIEW_HPP
+#ifndef INCLUDED_MVC_VIEW_ENTITYVIEW_HPP
+#define INCLUDED_MVC_VIEW_ENTITYVIEW_HPP
 
-#include "../model/EntityModel.hpp"
-#include "../../IOhandlers/Window.hpp"
-#include "../../IOhandlers/Sprite.hpp"
+#include "EntityViewBase.hpp"
 
 namespace game {
 namespace MVC {
 namespace view {
 
 /**
- * @brief Base class that represents a view for entities.
+ * @brief Templatized view for entities.
  */
-class EntityView
+template <typename EntityType>
+class EntityView final: public EntityViewBase
 {
-protected:
-	model::EntityModel::ShrPtr m_model;
-	IOhandlers::Sprite m_sprite;
+private:
 public:
-	using UnqPtr = std::unique_ptr<EntityView>;
+	using UnqPtr = std::unique_ptr<EntityView<EntityType>>;
 
 	/**
-	 * @brief Construct a view for the specified EntityModel and the specified Sprite.
+	 * @brief Constructor based on a model pointer and a sprite.
 	 */
-	EntityView(const model::EntityModel::ShrPtr& model_ptr,
-			   const IOhandlers::Sprite& entity_sprite);
+	EntityView(const typename EntityType::ShrPtr& model_ptr, const IOhandlers::Sprite& sprite);
 
 	/**
 	 * @brief Destructor.
 	 */
-	virtual ~EntityView(void);
+	~EntityView(void);
 
 	/**
-	 * @brief Render the view.
+	 * @brief Render the entity view to the specified window.
 	 */
-	virtual void render(game::IOhandlers::Window& render_window) = 0;
+	void render(const IOhandlers::Window& window) override;
+
 };
 
 }}} // namespace game::MVC::view
 
-#endif // MVC_VIEW_ENTITYVIEW_HPP
+#endif // INCLUDED_MVC_VIEW_ENTITYVIEW_HPP

@@ -19,11 +19,12 @@ GameModel::~GameModel(void)
 void GameModel::do_game_tick(void)
 {
 }
-
+/*
 void GameModel::debug_add_entity_model(const EntityModel::ShrPtr& entity_model_ptr)
 {
 	m_entity_models.push_back(entity_model_ptr);
 }
+*/
 
 }}} // namespace game::MVC::model
 

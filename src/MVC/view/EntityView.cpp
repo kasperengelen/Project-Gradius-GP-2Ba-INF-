@@ -1,19 +1,42 @@
-//==================================================
-// @brief Implementation of EntityView.hpp
-//==================================================
+//===========================================
+// @brief Implementation of EntityView.hpp.
+//===========================================
 
+// include header
 #include "EntityView.hpp"
+
+// include entities
+#include "../model/PlayerModel.hpp"
+#include "../model/EnemyModel.hpp"
 
 namespace game {
 namespace MVC {
 namespace view {
 
-EntityView::EntityView(const model::EntityModel::ShrPtr& model_ptr,
-					   const IOhandlers::Sprite& entity_sprite)
-	: m_model{model_ptr}, m_sprite{entity_sprite}
-{}
+/* specialize for PlayerModel */
+template <>
+void EntityView<model::PlayerModel>::render(const IOhandlers::Window& window)
+{
 
-EntityView::~EntityView(void)
-{}
+}
+
+/* Specialize for EnemyModel */
+template <>
+void EntityView<model::EnemyModel>::render(const IOhandlers::Window& window)
+{
+
+}
+
 
 }}} // namespace game::MVC::view
+
+
+
+
+
+
+
+
+
+
+

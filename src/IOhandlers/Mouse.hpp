@@ -2,8 +2,8 @@
 // @brief Header file for Mouse class.
 //=======================================
 
-#ifndef IOHANDLERS_MOUSE_HPP
-#define IOHANDLERS_MOUSE_HPP
+#ifndef INCLUDED_IOHANDLERS_MOUSE_HPP
+#define INCLUDED_IOHANDLERS_MOUSE_HPP
 
 #include <SFML/Window/Mouse.hpp>
 #include <map>
@@ -83,4 +83,4 @@ public:
 
 
 
-#endif // IOHANDLERS_MOUSE_HPP
+#endif // INCLUDED_IOHANDLERS_MOUSE_HPP

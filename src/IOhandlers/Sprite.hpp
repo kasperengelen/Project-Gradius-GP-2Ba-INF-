@@ -4,8 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#ifndef IOHANDLERS_SPRITE_HPP
-#define IOHANDLERS_SPRITE_HPP
+#ifndef INCLUDED_IOHANDLERS_SPRITE_HPP
+#define INCLUDED_IOHANDLERS_SPRITE_HPP
 
 namespace game {
 namespace IOhandlers {
@@ -16,13 +16,19 @@ namespace IOhandlers {
 class Sprite
 {
 private:
-	sf::Sprite m_sprite;
 	sf::Texture m_tex;
+	sf::Sprite m_sprite;
 public:
 	/**
 	 * @brief Construct a sprite from an image file.
 	 */
 	Sprite(const std::string& filename);
+
+	/**
+	 * @brief Copy constructor.
+	 */
+	Sprite(const Sprite& old);
+
 
 	/**
 	 * @brief Set the position of the sprite.
@@ -43,4 +49,4 @@ public:
 }} // namespace game::IOhandlers
 
 
-#endif // IOHANDLERS_SPRITE_HPP
+#endif // INCLUDED_IOHANDLERS_SPRITE_HPP

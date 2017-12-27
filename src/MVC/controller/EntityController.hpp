@@ -1,47 +1,57 @@
-//==================================================
+//=========================================
 // @brief Header file for EntityController class.
-//==================================================
+//=========================================
 
-#ifndef MVC_CONTROLLER_ENTITYCONTROLLER_HPP
-#define MVC_CONTROLLER_ENTITYCONTROLLER_HPP
+#ifndef INCLUDED_MVC_CONTROLLER_ENTITYCONTROLLER_HPP
+#define INCLUDED_MVC_CONTROLLER_ENTITYCONTROLLER_HPP
 
-#include "../model/EntityModel.hpp"
-
-#include "../../IOhandlers/IOEvent.hpp"
+// include base
+#include "EntityControllerBase.hpp"
 
 namespace game {
 namespace MVC {
 namespace controller {
 
-class EntityController
+/**
+ * @brief Templatized controller for entities.
+ */
+template <typename EntityType>
+class EntityController final: public EntityControllerBase
 {
-protected:
-	model::EntityModel::ShrPtr m_model;
-
+private:
 public:
-	using UnqPtr = std::unique_ptr<EntityController>;
+	using UnqPtr = std::unique_ptr<EntityController<EntityType>>;
 
 	/**
-	 * @brief Constructor.
+	 * @brief Constructor based on a model pointer.
 	 */
-	EntityController(const model::EntityModel::ShrPtr& model_ptr);
+	EntityController(const typename EntityType::ShrPtr& model_ptr);
 
 	/**
 	 * @brief Destructor.
 	 */
-	virtual ~EntityController(void);
+	~EntityController(void);
 
 	/**
-	 * @brief Handle a game tick.
+	 * @brief Notify the controller that the specified event has occurred.
 	 */
-	virtual void handle_tick(void) = 0;
+	void handle_ioevent(const IOhandlers::IOEvent& ev) override;
 
 	/**
-	 * @brief Handle an IOEvent.
+	 * @brief Notify the controller that a game tick needs to be performed.
 	 */
-	virtual void handle_event(const IOhandlers::IOEvent& event) = 0;
+	void handle_game_tick(void) override;
 };
+
+template <typename EntityType>
+EntityController<EntityType>::EntityController(const typename EntityType::ShrPtr& model_ptr)
+	: EntityControllerBase{model_ptr}
+{}
+
+template <typename EntityType>
+EntityController<EntityType>::~EntityController(void)
+{}
 
 }}} // namespace game::MVC::controller
 
-#endif // MVC_CONTROLLER_ENTITYCONTROLLER_HPP
+#endif // INCLUDED_MVC_CONTROLLER_ENTITYCONTROLLER_HPP

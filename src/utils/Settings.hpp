@@ -2,8 +2,8 @@
 // @brief Header file for Settings class.
 //=======================================
 
-#ifndef UTILS_SETTINGS_HPP
-#define UTILS_SETTINGS_HPP
+#ifndef INCLUDED_UTILS_SETTINGS_HPP
+#define INCLUDED_UTILS_SETTINGS_HPP
 
 #include <map>
 #include <string>
@@ -110,4 +110,4 @@ public:
 
 }}
 
-#endif // UTILS_SETTINGS_HPP
+#endif // INCLUDED_UTILS_SETTINGS_HPP

@@ -20,7 +20,7 @@ class IOEvent
 {
 public:
 	/**
-	 * @brief Enumeration of keyboard types.
+	 * @brief Enumeration of event types.
 	 */
 	enum class EventType
 	{

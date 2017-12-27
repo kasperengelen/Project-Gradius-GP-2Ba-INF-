@@ -19,7 +19,7 @@ namespace model {
 class GameModel final
 {
 private:
-	std::vector<EntityModel::ShrPtr> m_entity_models;
+	//std::vector<EntityModel::ShrPtr> m_entity_models;
 public:
 	using ShrPtr = std::shared_ptr<GameModel>;
 
@@ -31,7 +31,7 @@ public:
 	/**
 	 * @brief Destructor.
 	 */
-	virtual ~GameModel(void);
+	~GameModel(void);
 
 	/**
 	 * @brief Notify the model that a game tick is to be performed.
@@ -39,7 +39,7 @@ public:
 	void do_game_tick(void);
 
 	//TODO REMOVE DEBUG
-	void debug_add_entity_model(const EntityModel::ShrPtr& entity_model_ptr);
+	//void debug_add_entity_model(const EntityModel::ShrPtr& entity_model_ptr);
 
 };
 

@@ -2,12 +2,15 @@
 // @brief Header file for Singleton class.
 //====================================
 
-#ifndef MISC_SINGLETON_HPP
-#define MISC_SINGLETON_HPP
+#ifndef INCLUDED_MISC_SINGLETON_HPP
+#define INCLUDED_MISC_SINGLETON_HPP
 
 namespace game {
 namespace misc {
 
+/**
+ * @brief Base class for Singletons.
+ */
 template <typename T>
 class Singleton
 {
@@ -29,6 +32,5 @@ public:
 
 }} // namespace game::misc
 
+#endif // INCLUDED_MISC_SINGLETON_HPP
 
-
-#endif // MISC_SINGLETON_HPP

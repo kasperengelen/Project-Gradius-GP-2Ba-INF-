@@ -1,0 +1,28 @@
+{
+	"PlayerData" : {
+		"Sprite": "...",
+		"Speed" : "...",
+		"Lives" : 5
+	},
+	"EnemyTypes" : [
+		{
+			"Symbol": "E1",
+			"Speed" : 5.0,
+			"Sprite": "..."
+			
+		},
+		{
+			"Symbol": "E2",
+			"Speed": 1.0,
+			"Sprite": "..."
+		}
+	],
+	
+	"LevelGrid": [
+					["W", "W", "W" ],
+					[".", ".", "." ],
+					["P", ".", "E1"],
+					[".", ".", "." ],
+					["W", "W", "W" ]
+	]
+}

@@ -2,8 +2,8 @@
 // @brief Header file for the Keyboard class.
 //=====================================
 
-#ifndef IOHANDLERS_KEYBOARD_HPP
-#define IOHANDLERS_KEYBOARD_HPP
+#ifndef INCLUDED_IOHANDLERS_KEYBOARD_HPP
+#define INCLUDED_IOHANDLERS_KEYBOARD_HPP
 
 #include "../utils/Singleton.hpp"
 #include <SFML/Window/Keyboard.hpp>
@@ -165,4 +165,4 @@ public:
 
 
 
-#endif // IOHANDLERS_KEYBOARD_HPP
+#endif // INCLUDED_IOHANDLERS_KEYBOARD_HPP

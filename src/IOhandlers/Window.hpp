@@ -62,7 +62,6 @@ public:
 	 * @return True if events occurred.
 	 * @return False if no events occurred.
 	 */
-	// TODO convert to IOEvent?
 	bool poll_event(sf::Event& ev);
 };
 

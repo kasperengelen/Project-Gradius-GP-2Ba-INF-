@@ -7,7 +7,6 @@
 
 #include "../model/GameModel.hpp"
 using game::MVC::model::GameModel;
-#include "EntityView.hpp"
 
 #include "../../IOhandlers/Window.hpp"
 
@@ -25,7 +24,7 @@ class GameView final
 private:
 	model::GameModel::ShrPtr m_model;
 
-	std::vector<EntityView::UnqPtr> m_entity_views;
+	//std::vector<EntityView::UnqPtr> m_entity_views;
 public:
 	using UnqPtr = std::unique_ptr<GameView>;
 
@@ -45,7 +44,7 @@ public:
 	void render(game::IOhandlers::Window& render_window);
 
 	//TODO REMOVE DEBUG
-	void debug_add_entity_view(EntityView::UnqPtr entity_model_ptr);
+	//void debug_add_entity_view(EntityView::UnqPtr entity_model_ptr);
 };
 
 }}} // namespace game::MVC::view
