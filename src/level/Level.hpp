@@ -10,7 +10,7 @@ using game::utils::Vec2D;
 
 #include "LevelEntity.hpp"
 
-#include <map>
+#include <vector>
 
 namespace game {
 namespace level {
@@ -24,7 +24,7 @@ public:
 
 private:
 	// stores entities
-	std::map<Vec2D, LevelEntity::UnqPtr> m_data;
+	std::vector<LevelEntity::UnqPtr> m_data;
 
 	// we specify the height and width with integers
 	// since they need to be natural numbers.
@@ -39,17 +39,17 @@ public:
 	/**
 	 * @brief Retrieve the height of the level.
 	 */
-	int get_height(void) const;
+	unsigned int get_height(void) const;
 
 	/**
 	 * @brief Retrieve the width of the level.
 	 */
-	int get_width(void) const;
+	unsigned int get_width(void) const;
 
 	/**
 	 * @brief Add an entity to the level.
 	 */
-	void add_entity(const Vec2D& pos, LevelEntity::UnqPtr entity_ptr);
+	void add_entity(LevelEntity::UnqPtr entity_ptr);
 
 };
 

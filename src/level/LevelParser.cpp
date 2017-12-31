@@ -10,6 +10,7 @@
 using nlohmann::json;
 
 #include "../exception/LevelException.hpp"
+using game::exception::level::LevelLoadException;
 
 #include "../utils/Vec2D.hpp"
 using game::utils::Vec2D;
@@ -22,13 +23,12 @@ using game::utils::Vec2D;
 namespace game {
 namespace level {
 
-
-namespace
+/**
+ * @brief Convert a JSON object to a Vec2D object.
+ */
+const Vec2D json_to_vec(const json& j)
 {
-	const Vec2D json_to_vec(const json& j)
-	{
-		return {j.at(0).get<float>(), j.at(1).get<float>()};
-	}
+	return {j.at(0).get<float>(), j.at(1).get<float>()};
 }
 
 /**
@@ -36,65 +36,108 @@ namespace
  */
 struct EntityTemplate
 {
+private:
 public:
-	enum class TemplateType
-	{
-		PLAYER,
-		ENEMY,
-		OBSTACLE
-	};
-
 	using UnqPtr = std::unique_ptr<EntityTemplate>;
 
+	/**
+	 * @brief Constructor.
+	 */
+	EntityTemplate(void)
+	{}
+
+	/**
+	 * @brief Destructor.
+	 */
+	virtual ~EntityTemplate(void)
+	{}
+
+	/**
+	 * @brief Convert the stored specification to an actual LevelEntity.
+	 */
+	virtual LevelEntity::UnqPtr to_level_entity(const Vec2D& pos) const = 0;
+};
+
+/**
+ * @brief Class to store player specifications.
+ */
+class PlayerTemplate final: public EntityTemplate
+{
+private:
+	const std::string m_sprite_filename;
+	const int         m_lives;
+	const float       m_max_speed;
 public:
-	// specifies
-	const TemplateType templ_type;
-
-protected:
-	// make constructor protected
-	EntityTemplate(const TemplateType& templ_type)
-		: templ_type{templ_type}
-	{}
-};
-
-struct PlayerTemplate: public EntityTemplate
-{
-	const std::string sprite_filename;
-	const int lives;
-	const float max_speed;
-
+	/**
+	 * @brief Constructor.
+	 */
 	PlayerTemplate(const std::string& sprite_filename, const int lives, const float max_speed)
-		: EntityTemplate{EntityTemplate::TemplateType::PLAYER},
-		  sprite_filename{sprite_filename},
-		  lives{lives},
-		  max_speed{max_speed}
+		: m_sprite_filename{sprite_filename},
+		  m_lives{lives},
+		  m_max_speed{max_speed}
 	{}
+
+	/**
+	 * @brief Convert to level entity.
+	 */
+	LevelEntity::UnqPtr to_level_entity(const Vec2D& pos) const override
+	{
+		return std::make_unique<LevelPlayer>(pos, m_sprite_filename, m_lives, m_max_speed);
+	}
 };
 
-struct EnemyTemplate: public EntityTemplate
+/**
+ * @brief Class to store enemy specifications.
+ */
+class EnemyTemplate final: public EntityTemplate
 {
-	const std::string sprite_filename;
-	const Vec2D direction;
-	const int attack_damage;
-
+private:
+	const std::string m_sprite_filename;
+	const Vec2D       m_direction;
+	const int         m_attack_damage;
+public:
+	/**
+	 * @brief Constructor.
+	 */
 	EnemyTemplate(const std::string& sprite_filename, const Vec2D& dir, const int attack_damage)
-		: EntityTemplate{EntityTemplate::TemplateType::ENEMY},
-		  sprite_filename{sprite_filename},
-		  direction{dir},
-		  attack_damage{attack_damage}
+		: m_sprite_filename{sprite_filename},
+		  m_direction{dir},
+		  m_attack_damage{attack_damage}
 	{}
+
+	/**
+	 * @brief Convert to level entity.
+	 */
+	LevelEntity::UnqPtr to_level_entity(const Vec2D& pos) const override
+	{
+		return std::make_unique<LevelEnemy>(pos, m_sprite_filename, m_direction, m_attack_damage);
+	}
 };
 
-struct ObstacleTemplate: public EntityTemplate
+/**
+ * @brief Class to store Obstacle specifications.
+ */
+class ObstacleTemplate final: public EntityTemplate
 {
-	const std::string sprite_filename;
-	const int collision_penalty;
-
+private:
+	const std::string m_sprite_filename;
+	const int 		  m_collision_penalty;
+public:
+	/**
+	 * @brief Constructor.
+	 */
 	ObstacleTemplate(const std::string& sprite_filename, const int collision_penalty)
-		: EntityTemplate{EntityTemplate::TemplateType::OBSTACLE},
-		  sprite_filename{sprite_filename},
-		  collision_penalty{collision_penalty}
+		: m_sprite_filename{sprite_filename},
+		  m_collision_penalty{collision_penalty}
 	{}
+
+	/**
+	 * @brief Convert to level entity.
+	 */
+	LevelEntity::UnqPtr to_level_entity(const Vec2D& pos) const override
+	{
+		return std::make_unique<LevelObstacle>(pos, m_sprite_filename, m_collision_penalty);
+	}
 };
 
 const Level parse_level(const std::string& json_filename)
@@ -114,107 +157,159 @@ const Level parse_level(const std::string& json_filename)
 	}
 	catch(...)
 	{
-		throw exception::level::LevelLoadException{json_filename, "Cannot load file."};
+		throw LevelLoadException{json_filename, "Cannot load file."};
 	}
 
+	////////////////////////////////////////////////////////////////////
 	// load "PlayerData"
+	////////////////////////////////////////////////////////////////////
 	try
 	{
-		// iterate over this
-		const auto player_data = json_data.at("PlayerData");
+		EntityTemplate::UnqPtr player_templ
+				= std::make_unique<PlayerTemplate>
+								(
+									json_data.at("PlayerData").at("Sprite").get<std::string>(),
+									json_data.at("PlayerData").at("Lives").get<int>(),
+									json_data.at("PlayerData").at("MaxSpeed").get<float>()
+								);
 
-		const std::string sprite_filename = player_data.at("Sprite").get<std::string>();
-		const int lives                   = player_data.at("Lives").get<int>();
-		const float max_speed             = player_data.at("MaxSpeed").get<float>();
+		const std::string symbol = json_data.at("PlayerData").at("Symbol").get<std::string>();
 
-		EntityTemplate::UnqPtr player_templ = std::make_unique<PlayerTemplate>(sprite_filename, lives, max_speed);
-
-		const std::string symbol = player_data.at("Symbol").get<std::string>();
-
+		if(entity_templates.count(symbol)) {
+			throw LevelLoadException{json_filename, "Duplicate symbol: '" + symbol + "'."};
+		} else if (symbol == ".") {
+			throw LevelLoadException{json_filename, "Cannot use '.' as symbol."};
+		}
 
 		entity_templates.insert(std::make_pair(symbol, std::move(player_templ)));
 	}
-	catch(const exception::level::LevelLoadException& e)
+	catch(const LevelLoadException& e)
 	{
+		// rethrow custom exception.
 		throw;
 	}
 	catch(...)
 	{
-		throw exception::level::LevelLoadException{json_filename, "Cannot retrieve player data."};
+		throw LevelLoadException{json_filename, "Cannot retrieve player data."};
 	}
 
+	////////////////////////////////////////////////////////////////////
 	// load "EnemyTypes"
+	////////////////////////////////////////////////////////////////////
 	try
 	{
-		const auto enemy_data_list = json_data.at("EnemyTypes");
-
 		// iterate over enemies
-		for(const auto& iterated_enemy : enemy_data_list)
+		for(const auto& iterated_enemy : json_data.at("EnemyTypes"))
 		{
-			const std::string sprite_filename = iterated_enemy.at("Sprite").get<std::string>();
-			const Vec2D dir       = json_to_vec(iterated_enemy.at("Direction"));
-			const int attack_damage           = iterated_enemy.at("AttackDamage").get<int>();
-
 			EntityTemplate::UnqPtr enemy_templ
-					= std::make_unique<EnemyTemplate>(sprite_filename, dir, attack_damage);
+					= std::make_unique<EnemyTemplate>
+									(
+										iterated_enemy.at("Sprite").get<std::string>(),
+							json_to_vec(iterated_enemy.at("Direction")),
+										iterated_enemy.at("AttackDamage").get<int>()
+									);
 
-			const std::string symbol = iterated_enemy.at("Symbol");
+			const std::string symbol = iterated_enemy.at("Symbol").get<std::string>();
 
 			if(entity_templates.count(symbol)) {
-				throw exception::level::LevelLoadException{json_filename, "Duplicate symbol: '" + symbol + "'."};
+				throw LevelLoadException{json_filename, "Duplicate symbol: '" + symbol + "'."};
+			} else if (symbol == ".") {
+				throw LevelLoadException{json_filename, "Cannot use '.' as symbol."};
 			}
 
 			entity_templates.insert(std::make_pair(symbol, std::move(enemy_templ)));
 		}
 	}
-	catch(const exception::level::LevelLoadException& e)
+	catch(const LevelLoadException& e)
 	{
 		throw;
 	}
 	catch(...)
 	{
-		throw exception::level::LevelLoadException{json_filename, "Cannot retrieve enemy data."};
+		throw LevelLoadException{json_filename, "Cannot retrieve enemy data."};
 	}
 
-
-
+	////////////////////////////////////////////////////////////////////
 	// load "ObstacleTypes"
+	////////////////////////////////////////////////////////////////////
 	try
 	{
-		const auto obstacle_data_list = json_data.at("ObstacleTypes");
-
 		// iterate over obstacles
-		for(const auto iterated_obstacle: obstacle_data_list)
+		for(const auto iterated_obstacle: json_data.at("ObstacleTypes"))
 		{
-			const std::string sprite_filename = iterated_obstacle.at("Sprite").get<std::string>();
-			const int collision_penalty       = iterated_obstacle.at("CollisionPenalty").get<int>();
-
 			EntityTemplate::UnqPtr obstacle_templ
-							 = std::make_unique<ObstacleTemplate>(sprite_filename, collision_penalty);
+					= std::make_unique<ObstacleTemplate>
+									(
+										iterated_obstacle.at("Sprite").get<std::string>(),
+										iterated_obstacle.at("CollisionPenalty").get<int>()
+									);
 
-			const std::string symbol = iterated_obstacle.at("Symbol");
+			const std::string symbol = iterated_obstacle.at("Symbol").get<std::string>();
 
 			if(entity_templates.count(symbol)) {
-				throw exception::level::LevelLoadException{json_filename, "Duplicate symbol: '" + symbol + "'."};
+				throw LevelLoadException{json_filename, "Duplicate symbol: '" + symbol + "'."};
+			} else if (symbol == ".") {
+				throw LevelLoadException{json_filename, "Cannot use '.' as symbol."};
 			}
 
 			entity_templates.insert(std::make_pair(symbol, std::move(obstacle_templ)));
 		}
 	}
-	catch(const exception::level::LevelLoadException& e)
+	catch(const LevelLoadException& e)
 	{
 		throw;
 	}
 	catch(...)
 	{
-		throw exception::level::LevelLoadException{json_filename, "Cannot retrieve obstacle data."};
+		throw LevelLoadException{json_filename, "Cannot retrieve obstacle data."};
 	}
 
-	// create level object with dimensions.
+	////////////////////////////////////////////////////////////////////
+	// Load entities into Level
+	////////////////////////////////////////////////////////////////////
 
-	// fill grid based on entity data
+	// list of lists, outer list needs to be reversed, inner list is in correct order
+	const auto& grid = json_data.at("LevelGrid").get<std::vector<std::vector<std::string>>>();
 
-	return Level{10, 10};
+	// create level object
+	Level retval{grid.at(0).size(), grid.size()};
+
+	// reverse iterate since the lowest row of the grid has the lowest coordinate
+	// but appears last
+	int row = 0;
+	for(auto cr_it = grid.crbegin(); cr_it != grid.crend(); cr_it++)
+	{
+		// assert here that the row has correct length.
+		if(not (cr_it->size() == retval.get_width()))
+		{
+			throw LevelLoadException{json_filename, "Rows in level grid need to be of equal length."};
+		}
+
+		int col = 0;
+		for(const auto& symbol : *cr_it)
+		{
+			if(symbol == ".")
+			{
+				// empty spot
+				continue;
+			}
+			else if(entity_templates.count(symbol))
+			{
+				// add entity to level.
+				retval.add_entity(entity_templates.at(symbol)->to_level_entity(Vec2D{col, row}));
+			}
+			else
+			{
+				throw LevelLoadException{json_filename, "Unknown symbol '" + symbol + "' in level grid."};
+			}
+
+			col++;
+		}
+		row++;
+	}
+
+	// return level
+	return retval;
 
 }
 
