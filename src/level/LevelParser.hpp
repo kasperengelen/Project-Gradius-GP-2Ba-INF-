@@ -1,15 +1,19 @@
-/*
- * LevelParser.hpp
- *
- *  Created on: Dec 23, 2017
- *      Author: kasper
- */
+//==========================================================
+// @brief Header file for LevelParser.
+//==========================================================
 
-#ifndef LEVEL_LEVELPARSER_HPP_
-#define LEVEL_LEVELPARSER_HPP_
+#ifndef INCLUDED_LEVEL_LEVELPARSER_HPP
+#define INCLUDED_LEVEL_LEVELPARSER_HPP
 
+#include "Level.hpp"
 
+#include <string>
 
+namespace game {
+namespace level {
 
+const Level parse_level(const std::string& json_filename);
 
-#endif /* LEVEL_LEVELPARSER_HPP_ */
+}} // namespace game::level
+
+#endif // INCLUDED_LEVEL_LEVELPARSER_HPP

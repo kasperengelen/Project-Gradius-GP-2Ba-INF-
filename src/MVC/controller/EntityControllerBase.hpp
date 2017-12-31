@@ -6,6 +6,8 @@
 #define INCLUDED_MVC_CONTROLLER_ENTITYCONTROLLERBASE_HPP
 
 #include "../model/EntityModel.hpp"
+using game::MVC::model::EntityModel;
+
 #include "../../IOhandlers/IOEvent.hpp"
 
 namespace game {
@@ -18,7 +20,23 @@ namespace controller {
 class EntityControllerBase
 {
 private:
-	model::EntityModel::ShrPtr m_modelptr;
+	EntityModel::ShrPtr m_modelptr;
+
+protected:
+	/**
+	 * @brief Method so that inherited classes can access the model.
+	 *
+	 * @note Returns a raw pointer. This is to prevent the lifetime of the model from being manipulated.
+	 */
+	const EntityModel* get_model_ptr(void) const;
+
+	/**
+	 * @brief Method so that inherited classes can access and manipulate the model.
+	 *
+	 * @note Returns a raw pointer. This is to prevent the lifetime of the model from being manipulated.
+	 */
+	EntityModel* get_model_ptr(void);
+
 public:
 	using UnqPtr = std::unique_ptr<EntityControllerBase>;
 
@@ -31,11 +49,6 @@ public:
 	 * @brief Destructor.
 	 */
 	virtual ~EntityControllerBase(void);
-
-	/**
-	 * @brief Retrieve the model that the controller controls.
-	 */
-	const model::EntityModel::ShrPtr& get_model(void) const;
 
 	/**
 	 * @brief Notifies the controller that the specified event has occurred.

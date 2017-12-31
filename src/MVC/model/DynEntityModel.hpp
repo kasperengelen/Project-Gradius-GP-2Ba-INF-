@@ -34,12 +34,12 @@ public:
 	/**
 	 * @brief Retrieve the direction vector of the entity.
 	 */
-	const sf::Vector2f& get_dir(void) const;
+	const sf::Vector2f& get_direction(void) const;
 
 	/**
 	 * @brief Set the direction vector of the entity.
 	 */
-	void set_dir(const sf::Vector2f& dir);
+	void set_direction(const sf::Vector2f& dir);
 
 	/**
 	 * @brief Perform a game tick.

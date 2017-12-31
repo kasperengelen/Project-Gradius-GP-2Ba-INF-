@@ -25,7 +25,7 @@ public:
 	 * @brief Constructor based on a position, direction vector and a number of lives.
 	 *
 	 */
-	PlayerModel(const sf::Vector2f& pos, const sf::Vector2f& dir, const int lives);
+	PlayerModel(const sf::Vector2f& pos, const int lives);
 
 	/**
 	 * @brief Destructor.

@@ -5,9 +5,12 @@
 #ifndef INCLUDED_MVC_CONTROLLER_GAMECONTROLLER_HPP
 #define INCLUDED_MVC_CONTROLLER_GAMECONTROLLER_HPP
 
+// project includes
 #include "../model/GameModel.hpp"
 #include "../../IOhandlers/Keyboard.hpp"
 #include "../../IOhandlers/IOEvent.hpp"
+
+#include "EntityControllerBase.hpp"
 
 namespace game {
 namespace MVC {
@@ -20,7 +23,7 @@ class GameController final
 {
 private:
 	model::GameModel::ShrPtr m_model;
-	//std::vector<EntityController::UnqPtr> m_entity_controllers;
+	std::vector<EntityControllerBase::UnqPtr> m_entity_controllers;
 
 public:
 	using UnqPtr = std::unique_ptr<GameController>;
@@ -45,8 +48,8 @@ public:
 	 */
 	void handle_event(const IOhandlers::IOEvent& event);
 
-	//TODO REMOVE DEBUG
-	//void debug_add_entity_controller(EntityController::UnqPtr entity_controller_ptr);
+	// TODO remove debug method
+	void debug_add_entity_controller(EntityControllerBase::UnqPtr entity_controller_ptr);
 
 };
 

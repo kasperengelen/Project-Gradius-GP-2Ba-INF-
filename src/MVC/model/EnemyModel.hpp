@@ -14,7 +14,7 @@ namespace model {
 /**
  * @brief Model class for enemy entities.
  */
-class EnemyModel : public DynEntityModel
+class EnemyModel final: public DynEntityModel
 {
 private:
 
@@ -25,6 +25,11 @@ public:
 	 * @brief Constructor based on a position and a direction.
 	 */
 	EnemyModel(const sf::Vector2f& pos, const sf::Vector2f& dir);
+
+	/**
+	 * @brief Destructor.
+	 */
+	~EnemyModel(void);
 
 	/**
 	 * @brief Perform a game tick.

@@ -15,12 +15,12 @@ DynEntityModel::DynEntityModel(const sf::Vector2f& pos, const sf::Vector2f& dir)
 DynEntityModel::~DynEntityModel(void)
 {}
 
-const sf::Vector2f& DynEntityModel::get_dir(void) const
+const sf::Vector2f& DynEntityModel::get_direction(void) const
 {
 	return m_dir;
 }
 
-void DynEntityModel::set_dir(const sf::Vector2f& dir)
+void DynEntityModel::set_direction(const sf::Vector2f& dir)
 {
 	m_dir = dir;
 }

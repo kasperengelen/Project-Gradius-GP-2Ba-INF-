@@ -34,9 +34,20 @@ public:
 	/**
 	 * @brief Render the entity view to the specified window.
 	 */
-	void render(const IOhandlers::Window& window) override;
+	void render(IOhandlers::Window& window) override;
 
 };
+
+
+template <typename EntityType>
+EntityView<EntityType>::EntityView(const typename EntityType::ShrPtr& model_ptr, const IOhandlers::Sprite& sprite)
+	: EntityViewBase{model_ptr, sprite}
+{}
+
+template <typename EntityType>
+EntityView<EntityType>::~EntityView(void)
+{}
+
 
 }}} // namespace game::MVC::view
 

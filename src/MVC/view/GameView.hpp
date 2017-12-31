@@ -6,9 +6,10 @@
 #define INCLUDED_MVC_VIEW_GAMEVIEW_HPP
 
 #include "../model/GameModel.hpp"
-using game::MVC::model::GameModel;
+#include "EntityViewBase.hpp"
 
 #include "../../IOhandlers/Window.hpp"
+
 
 #include <memory>
 
@@ -24,14 +25,14 @@ class GameView final
 private:
 	model::GameModel::ShrPtr m_model;
 
-	//std::vector<EntityView::UnqPtr> m_entity_views;
+	std::vector<EntityViewBase::UnqPtr> m_entity_views;
 public:
 	using UnqPtr = std::unique_ptr<GameView>;
 
 	/**
 	 * @brief Construct a game view for the specified model.
 	 */
-	GameView(const GameModel::ShrPtr& model_ptr);
+	GameView(const model::GameModel::ShrPtr& model_ptr);
 
 	/**
 	 * @brief Destructor.
@@ -43,8 +44,8 @@ public:
 	 */
 	void render(game::IOhandlers::Window& render_window);
 
-	//TODO REMOVE DEBUG
-	//void debug_add_entity_view(EntityView::UnqPtr entity_model_ptr);
+	// TODO remove debug method
+	void debug_add_entity_view(EntityViewBase::UnqPtr entity_model_ptr);
 };
 
 }}} // namespace game::MVC::view

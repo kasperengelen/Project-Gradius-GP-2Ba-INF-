@@ -1,21 +1,31 @@
 {
 	"PlayerData" : {
-		"Sprite": "...",
-		"Speed" : "...",
+	    "Symbol":"P",
+		"Sprite": "./some_sprite.png",
+		"MaxSpeed" : 2.0,
 		"Lives" : 5
 	},
 	"EnemyTypes" : [
 		{
 			"Symbol": "E1",
-			"Speed" : 5.0,
-			"Sprite": "..."
-			
+			"Direction" : [5.0, 1.0],
+			"Sprite": "./enemy_sprite.png",
+			"AttackDamage": 2
 		},
 		{
 			"Symbol": "E2",
-			"Speed": 1.0,
-			"Sprite": "..."
+			"Direction" : [5.0, 3.0],
+			"Sprite": "./enemy_sprite.png",
+			"AttackDamage": 5
 		}
+	],
+	"ObstacleTypes" : [
+		{
+			"Symbol": "W",
+			"CollisionPenalty": 2,
+			"Sprite": "./obstacle_sprite.png"
+		}
+	
 	],
 	
 	"LevelGrid": [

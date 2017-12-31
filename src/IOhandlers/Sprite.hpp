@@ -33,7 +33,7 @@ public:
 	/**
 	 * @brief Set the position of the sprite.
 	 */
-	void set_position(const float x, const float y);
+	void set_position(const sf::Vector2f& vec);
 
 	/**
 	 * @brief Retrieve the sf::Sprite.

@@ -28,9 +28,9 @@ Sprite::Sprite(const Sprite& old)
 	m_sprite.setOrigin(m_tex.getSize().x / 2.0f, m_tex.getSize().y / 2.0f);
 }
 
-void Sprite::set_position(const float x, const float y)
+void Sprite::set_position(const sf::Vector2f& pos)
 {
-	m_sprite.setPosition(x, y);
+	m_sprite.setPosition(pos);
 }
 
 const sf::Sprite& Sprite::get_sfml_sprite(void) const

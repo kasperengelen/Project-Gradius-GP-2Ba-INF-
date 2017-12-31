@@ -7,6 +7,7 @@
 #define INCLUDED_MVC_VIEW_ENTITYVIEWBASE_HPP
 
 #include "../model/EntityModel.hpp"
+using game::MVC::model::EntityModel;
 #include "../../IOhandlers/Sprite.hpp"
 #include "../../IOhandlers/Window.hpp"
 
@@ -20,9 +21,36 @@ namespace view {
 class EntityViewBase
 {
 private:
-	model::EntityModel::ShrPtr m_modelptr;
+	EntityModel::ShrPtr m_modelptr;
 	IOhandlers::Sprite m_sprite;
+protected:
+	/**
+	 * @brief Method so that inherited classes can access the model.
+	 *
+	 * @note Returns a raw pointer. This is to prevent the lifetime of the model from being manipulated.
+	 */
+	const EntityModel* get_model_ptr(void) const;
+
+	/**
+	 * @brief Method so that inherited classes can access and manipulate the model.
+	 *
+	 * @note Returns a raw pointer. This is to prevent the lifetime of the model from being manipulated.
+	 */
+	EntityModel* get_model_ptr(void);
+
+	/**
+	 * @brief Method so that inherited classes can access the sprite.
+	 */
+	const IOhandlers::Sprite& get_sprite(void) const;
+
+	/**
+	 * @brief Method so that inherited classes can access and manipulate the sprite.
+	 */
+	IOhandlers::Sprite& get_sprite(void);
+
 public:
+	using UnqPtr = std::unique_ptr<EntityViewBase>;
+
 	/**
 	 * @brief Construct a view based on a pointer to a model and a sprite.
 	 */
@@ -34,14 +62,9 @@ public:
 	virtual ~EntityViewBase(void);
 
 	/**
-	 * @brief Retrieve the sprite of the view.
-	 */
-	const IOhandlers::Sprite& get_sprite(void) const;
-
-	/**
 	 * @brief Render the entity view to a window.
 	 */
-	virtual void render(const IOhandlers::Window& window) = 0;
+	virtual void render(IOhandlers::Window& window) = 0;
 };
 
 }}} // namespace game::MVC::view

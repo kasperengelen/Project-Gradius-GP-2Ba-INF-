@@ -22,32 +22,11 @@ void GameController::handle_tick(void)
 {
 	using IOhandlers::Keyboard;
 
-	if(IOhandlers::Keyboard::get_instance().get_key_state(Keyboard::KeyCode::Z))
-	{
-		std::cout << "GO UP" << std::endl;
-	}
-
-	if(IOhandlers::Keyboard::get_instance().get_key_state(Keyboard::KeyCode::D))
-	{
-		std::cout << "GO RIGHT" << std::endl;
-	}
-
-	if(IOhandlers::Keyboard::get_instance().get_key_state(Keyboard::KeyCode::Q))
-	{
-		std::cout << "GO LEFT" << std::endl;
-	}
-
-	if(IOhandlers::Keyboard::get_instance().get_key_state(Keyboard::KeyCode::S))
-	{
-		std::cout << "GO DOWN" << std::endl;
-	}
-
-	/*
+	// forward game tick
 	for(const auto& ent_ctrl: m_entity_controllers)
 	{
-		ent_ctrl->handle_tick();
+		ent_ctrl->handle_game_tick();
 	}
-	*/
 
 	m_model->do_game_tick();
 }
@@ -58,6 +37,7 @@ void GameController::handle_tick(void)
  */
 void GameController::handle_event(const IOhandlers::IOEvent& event)
 {
+	// update keyboard
 	switch(event.get_type())
 	{
 	case IOhandlers::IOEvent::EventType::KEY_UP:
@@ -91,19 +71,19 @@ void GameController::handle_event(const IOhandlers::IOEvent& event)
 	}
 
 	// forward event to sub controllers.
-	/*
+
 	for(const auto& ent_ctrl: m_entity_controllers)
 	{
-		ent_ctrl->handle_event(event);
+		ent_ctrl->handle_ioevent(event);
 	}
-	*/
+
 }
-/*
-void GameController::debug_add_entity_controller(EntityController::UnqPtr entity_controller_ptr)
+
+void GameController::debug_add_entity_controller(EntityControllerBase::UnqPtr entity_controller_ptr)
 {
 	m_entity_controllers.push_back(std::move(entity_controller_ptr));
 }
-*/
+
 
 }}} // namespace game::MVC::controller
 
