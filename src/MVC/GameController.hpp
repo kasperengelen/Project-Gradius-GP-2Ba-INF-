@@ -6,15 +6,17 @@
 #define INCLUDED_MVC_CONTROLLER_GAMECONTROLLER_HPP
 
 // project includes
-#include "../model/GameModel.hpp"
-#include "../../IOhandlers/Keyboard.hpp"
-#include "../../IOhandlers/IOEvent.hpp"
-
-#include "EntityControllerBase.hpp"
+#include "GameModel.hpp"
+using game::MVC::GameModel;
+#include "GameView.hpp"
+using game::MVC::GameView;
+#include "../IOhandlers/IOEvent.hpp"
+using game::IOhandlers::IOEvent;
+#include "../level/Level.hpp"
+using game::level::Level;
 
 namespace game {
 namespace MVC {
-namespace controller {
 
 /**
  * @brief Controller class that encompasses the entire controller component of the game.
@@ -22,16 +24,14 @@ namespace controller {
 class GameController final
 {
 private:
-	model::GameModel::ShrPtr m_model;
-	std::vector<EntityControllerBase::UnqPtr> m_entity_controllers;
+	GameModel::ShrPtr m_model_ptr;
+	GameView::ShrPtr  m_view_ptr;
 
 public:
-	using UnqPtr = std::unique_ptr<GameController>;
-
 	/**
-	 * @brief Controller specifying a pointer to a model.
+	 * @brief Controller specifying a pointer to a model and a pointer to a view.
 	 */
-	GameController(const model::GameModel::ShrPtr& model_ptr);
+	GameController(const GameModel::ShrPtr& model_ptr, const GameView::ShrPtr& view_ptr);
 
 	/**
 	 * @brief Destructor.
@@ -46,14 +46,19 @@ public:
 	/**
 	 * @brief Send an event to the controller.
 	 */
-	void handle_event(const IOhandlers::IOEvent& event);
+	void handle_event(const IOEvent& event);
 
 	// TODO remove debug method
-	void debug_add_entity_controller(EntityControllerBase::UnqPtr entity_controller_ptr);
+	void debug_load_level(const Level& level);
+
+	// TODO remove debug method
+	void debug_add_entity(const EntityBase::ShrPtr& entity_model_ptr, const EntityRepresentation::ShrPtr& entity_rep_ptr);
 
 };
 
-}}} // namespace game::MVC::controller
+}} // namespace game::MVC
 
 
 #endif // INCLUDED_MVC_CONTROLLER_GAMECONTROLLER_HPP
+
+

@@ -41,7 +41,7 @@ struct Vec2D
 	/**
 	 * @brief Addition.
 	 */
-	Vec2D operator+(const Vec2D& rhs);
+	Vec2D operator+(const Vec2D& rhs) const;
 
 	/**
 	 * @brief Convert to a sf::Vector2f

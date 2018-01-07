@@ -1,20 +1,19 @@
 //==================================================
-// @brief Header file for ObstacleModel class
+// @brief Header file for Obstacle class
 //==================================================
 
-#ifndef INCLUDED_MVC_MODEL_OBSTACLEMODEL_HPP
-#define INCLUDED_MVC_MODEL_OBSTACLEMODEL_HPP
+#ifndef INCLUDED_ENTITY_OBSTACLE_HPP
+#define INCLUDED_ENTITY_OBSTACLE_HPP
 
-#include "EntityModel.hpp"
+#include "EntityBase.hpp"
 
 namespace game {
-namespace MVC {
-namespace model {
+namespace entity {
 
 /**
  * @brief Entity that is an obstacle.
  */
-class ObstacleModel : public EntityModel
+class Obstacle : public EntityBase
 {
 private:
 	int m_coll_penalty;
@@ -22,7 +21,7 @@ public:
 	/**
 	 * @brief Constructor based on a position and a collision penalty.
 	 */
-	ObstacleModel(const sf::Vector2f& pos, const int coll_penalty);
+	Obstacle(const Vec2D& pos, const int coll_penalty);
 
 	/**
 	 * @brief Get the amount of lives the player loses on collision.
@@ -37,6 +36,7 @@ public:
 };
 
 
-}}} // namespace game::MVC::model
+}} // namespace game::entity
 
-#endif // INCLUDED_MVC_MODEL_OBSTACLEMODEL_HPP
+#endif // INCLUDED_ENTITY_OBSTACLE_HPP
+

@@ -1,48 +1,48 @@
 //===================================================
-// @brief Header file for EntityModel class.
+// @brief Header file for EntityBase class.
 //===================================================
 
-#ifndef INCLUDED_MVC_MODEL_ENTITYMODEL_HPP
-#define INCLUDED_MVC_MODEL_ENTITYMODEL_HPP
+#ifndef INCLUDED_ENTITY_ENTITYBASE_HPP
+#define INCLUDED_ENTITY_ENTITYBASE_HPP
 
-#include <SFML/Graphics.hpp>
+#include "../utils/Vec2D.hpp"
+using game::utils::Vec2D;
 
 #include <memory>
 
 namespace game {
-namespace MVC {
-namespace model {
+namespace entity {
 
 /**
  * @brief Base class for all entity models. This represents an Entity that has a position.
  */
-class EntityModel
+class EntityBase
 {
 private:
-	sf::Vector2f m_pos; // current position in world
+	Vec2D m_pos; // current position in world
 
 public:
-	using ShrPtr = std::shared_ptr<EntityModel>;
+	using ShrPtr = std::shared_ptr<EntityBase>;
 
 	/**
 	 * @brief Constructor for an EntityModel based on a position.
 	 */
-	EntityModel(const sf::Vector2f& pos);
+	EntityBase(const Vec2D& pos);
 
 	/**
 	 * @brief Destructor.
 	 */
-	virtual ~EntityModel(void);
+	virtual ~EntityBase(void);
 
 	/**
 	 * @brief Retrieve the position of the entity.
 	 */
-	const sf::Vector2f& get_position(void) const;
+	const Vec2D& get_position(void) const;
 
 	/**
 	 * @brief Set the position of the entity.
 	 */
-	void set_position(const sf::Vector2f& pos);
+	void set_position(const Vec2D& pos);
 
 	/**
 	 * @brief Handle a game tick.
@@ -52,7 +52,7 @@ public:
 };
 
 
-}}} // namespace game::MVC::model
+}} // namespace game::entity
 
-#endif // INCLUDED_MVC_MODEL_ENTITYMODEL_HPP
+#endif // INCLUDED_ENTITY_ENTITYBASE_HPP
 

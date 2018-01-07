@@ -5,17 +5,17 @@
 #ifndef INCLUDED_MVC_VIEW_GAMEVIEW_HPP
 #define INCLUDED_MVC_VIEW_GAMEVIEW_HPP
 
-#include "../model/GameModel.hpp"
-#include "EntityViewBase.hpp"
+#include "../entity/EntityRepresentation.hpp"
+using game::entity::EntityRepresentation;
+#include "GameModel.hpp"
 
-#include "../../IOhandlers/Window.hpp"
+#include "../IOhandlers/Window.hpp"
 
 
 #include <memory>
 
 namespace game {
 namespace MVC {
-namespace view {
 
 /**
  * @brief View class that encompasses the entire view component of the game.
@@ -23,16 +23,16 @@ namespace view {
 class GameView final
 {
 private:
-	model::GameModel::ShrPtr m_model;
+	GameModel::ShrPtr m_model;
 
-	std::vector<EntityViewBase::UnqPtr> m_entity_views;
+	std::vector<EntityRepresentation::ShrPtr> m_entity_views;
 public:
-	using UnqPtr = std::unique_ptr<GameView>;
+	using ShrPtr = std::shared_ptr<GameView>;
 
 	/**
 	 * @brief Construct a game view for the specified model.
 	 */
-	GameView(const model::GameModel::ShrPtr& model_ptr);
+	GameView(const GameModel::ShrPtr& model_ptr);
 
 	/**
 	 * @brief Destructor.
@@ -44,10 +44,13 @@ public:
 	 */
 	void render(game::IOhandlers::Window& render_window);
 
-	// TODO remove debug method
-	void debug_add_entity_view(EntityViewBase::UnqPtr entity_model_ptr);
+	/**
+	 * @brief Add an EntityRepresentation to the GameView.
+	 */
+	void add_entity_representation(const EntityRepresentation::ShrPtr& entity_rep_ptr);
+
 };
 
-}}} // namespace game::MVC::view
+}} // namespace game::MVC
 
 #endif // INCLUDED_MVC_VIEW_GAMEVIEW_HPP

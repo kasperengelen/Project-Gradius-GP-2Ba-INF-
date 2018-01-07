@@ -14,21 +14,20 @@ namespace sprite {
 /**
  * @brief Base class for exceptions related to the Sprite class.
  */
-class SpriteException: public BaseException
+class SpriteBaseException: public BaseException
 {
-private:
-public:
+protected:
 	/**
 	 * @brief Constructor based on an exception hierarchy identifier.
 	 */
-	SpriteException(const std::string& identifier)
+	SpriteBaseException(const std::string& identifier)
 		: BaseException{"IOHANDLERS::SPRITE::" + identifier}
 	{}
 
 	/**
 	 * @brief Constructor based on an exception hierarchy identifier and a reason.
 	 */
-	SpriteException(const std::string& identifier, const std::string& reason)
+	SpriteBaseException(const std::string& identifier, const std::string& reason)
 		: BaseException{"IOHANDLERS::SPRITE::" + identifier, reason}
 	{}
 };
@@ -36,7 +35,7 @@ public:
 /**
  * @brief Exception for when a texture file cannot be loaded.
  */
-class LoadFromFileException: public SpriteException
+class LoadFromFileException: public SpriteBaseException
 {
 private:
 public:
@@ -44,7 +43,7 @@ public:
 	 * @brief Constructor based on a filename.
 	 */
 	LoadFromFileException(const std::string filename)
-		: SpriteException{"LOAD_FROM_FILE", "Cannot load file: '" + filename + "'."}
+		: SpriteBaseException{"LOAD_FROM_FILE", "Cannot load file: '" + filename + "'."}
 	{}
 };
 

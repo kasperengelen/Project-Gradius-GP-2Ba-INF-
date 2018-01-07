@@ -28,7 +28,7 @@ Vec2D& Vec2D::operator*=(const double factor)
 	return *this;
 }
 
-Vec2D Vec2D::operator+(const Vec2D& rhs)
+Vec2D Vec2D::operator+(const Vec2D& rhs) const
 {
 	return {x + rhs.x, y + rhs.y};
 }

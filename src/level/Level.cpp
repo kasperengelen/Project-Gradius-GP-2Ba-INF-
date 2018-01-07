@@ -38,5 +38,15 @@ void Level::add_entity(LevelEntity::UnqPtr entity_ptr)
 	m_data.push_back(std::move(entity_ptr));
 }
 
+const Level::ConstIterator Level::begin(void) const
+{
+	return m_data.cbegin();
+}
+
+const Level::ConstIterator Level::end(void) const
+{
+	return m_data.cend();
+}
+
 }} // namespace game::level
 

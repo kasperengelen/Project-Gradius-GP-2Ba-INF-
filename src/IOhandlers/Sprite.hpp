@@ -2,6 +2,8 @@
 // @brief Header file for Sprite class.
 //====================================================
 
+#include "../utils/Vec2D.hpp"
+using game::utils::Vec2D;
 #include <SFML/Graphics.hpp>
 
 #ifndef INCLUDED_IOHANDLERS_SPRITE_HPP
@@ -33,7 +35,7 @@ public:
 	/**
 	 * @brief Set the position of the sprite.
 	 */
-	void set_position(const sf::Vector2f& vec);
+	void set_position(const Vec2D& vec);
 
 	/**
 	 * @brief Retrieve the sf::Sprite.

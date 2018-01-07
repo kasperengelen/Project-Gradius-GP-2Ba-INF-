@@ -1,22 +1,19 @@
 //=================================================
-// @brief Header file for BulletModel class.
+// @brief Header file for Bullet class.
 //=================================================
 
-#ifndef INCLUDED_MVC_MODEL_BULLETMODEL_HPP
-#define INCLUDED_MVC_MODEL_BULLETMODEL_HPP
+#ifndef INCLUDED_ENTITY_BULLET_HPP
+#define INCLUDED_ENTITY_BULLET_HPP
 
-#include "DynEntityModel.hpp"
-
-#include <SFML/Graphics.hpp>
+#include "DynamicEntity.hpp"
 
 namespace game {
-namespace MVC {
-namespace model {
+namespace entity {
 
 /**
  * @brief Class that represents a bullet.
  */
-class BulletModel : public DynEntityModel
+class Bullet : public DynamicEntity
 {
 private:
 	int m_damage;
@@ -24,7 +21,7 @@ public:
 	/**
 	 * @brief Construct bullet based on a position, direction, amount of damage.
 	 */
-	BulletModel(const sf::Vector2f& pos, const sf::Vector2f& dir, const int damage);
+	Bullet(const Vec2D& pos, const Vec2D& dir, const int damage);
 
 	/**
 	 * @brief Retrieve the damage of the bullet.
@@ -42,8 +39,8 @@ public:
 	void do_game_tick(void) override;
 };
 
-}}} // namespace game::MVC::model
+}} // namespace game::entity
 
-#endif // INCLUDED_MVC_MODEL_BULLETMODEL_HPP
+#endif // INCLUDED_ENTITY_BULLET_HPP
 
 

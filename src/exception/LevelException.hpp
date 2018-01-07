@@ -14,21 +14,20 @@ namespace level {
 /**
  * @brief Base class for all exceptions related to the Level class.
  */
-class LevelException: public BaseException
+class LevelBaseException: public BaseException
 {
-private:
-public:
+protected:
 	/**
 	 * @brief Constructor based on an exception hierarchy identifier.
 	 */
-	LevelException(const std::string& identifier)
+	LevelBaseException(const std::string& identifier)
 		: BaseException{"LEVEL::" + identifier}
 	{}
 
 	/**
 	 * @brief Constructor based on an exception hierarchy identifier and a reason.
 	 */
-	LevelException(const std::string& identifier, const std::string& reason)
+	LevelBaseException(const std::string& identifier, const std::string& reason)
 		: BaseException{"LEVEL::" + identifier, reason}
 	{}
 };
@@ -36,23 +35,22 @@ public:
 /**
  * @brief Exception for when loading a level cannot be loaded.
  */
-class LevelLoadException: public LevelException
+class LevelLoadException: public LevelBaseException
 {
-private:
 public:
 	/**
 	 * @brief Constructor based on the filename of the level file.
 	 */
 	LevelLoadException(const std::string& filename)
-		: LevelException{"LOAD_FROM_FILE", "Cannot load level from file: '" + filename + "'."}
+		: LevelBaseException{"LOAD_FROM_FILE", "Cannot load level from file: '" + filename + "'."}
 	{}
 
 	/**
 	 * @brief Constructor based on the filename of the level file and the reason.
 	 */
 	LevelLoadException(const std::string& filename, const std::string& reason)
-		: LevelException{"LOAD_FROM_FILE",
-						 "Cannot load level from file: '" + filename + "'.\nReason: " + reason}
+		: LevelBaseException{"LOAD_FROM_FILE",
+						     "Cannot load level from file: '" + filename + "'.\nReason: " + reason}
 	{}
 };
 

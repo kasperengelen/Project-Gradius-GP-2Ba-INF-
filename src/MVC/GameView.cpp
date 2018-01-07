@@ -4,12 +4,12 @@
 
 #include "GameView.hpp"
 
+#include <iostream>
 
 namespace game {
 namespace MVC {
-namespace view {
 
-GameView::GameView(const model::GameModel::ShrPtr& model_ptr)
+GameView::GameView(const GameModel::ShrPtr& model_ptr)
 	: m_model{model_ptr}
 {}
 
@@ -26,10 +26,12 @@ void GameView::render(game::IOhandlers::Window& render_window)
 	}
 }
 
-void GameView::debug_add_entity_view(EntityViewBase::UnqPtr entity_model_ptr)
+void GameView::add_entity_representation(const EntityRepresentation::ShrPtr& entity_rep_ptr)
 {
-	m_entity_views.push_back(std::move(entity_model_ptr));
+	m_entity_views.push_back(entity_rep_ptr);
 }
 
+}} // namespace game::MVC
 
-}}} // namespace game::MVC::view
+
+

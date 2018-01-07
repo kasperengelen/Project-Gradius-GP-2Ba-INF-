@@ -31,6 +31,8 @@ private:
 	unsigned int m_width;
 	unsigned int m_height;
 public:
+	using ConstIterator = std::vector<LevelEntity::UnqPtr>::const_iterator;
+
 	/**
 	 * @brief Construct a level with the specified height and width.
 	 */
@@ -51,6 +53,15 @@ public:
 	 */
 	void add_entity(LevelEntity::UnqPtr entity_ptr);
 
+	/**
+	 * @brief Iterator that marks the beginning.
+	 */
+	const ConstIterator begin(void) const;
+
+	/**
+	 * @brief Iterator that marks one past the end.
+	 */
+	const ConstIterator end(void) const;
 };
 
 }} // namespace game::level

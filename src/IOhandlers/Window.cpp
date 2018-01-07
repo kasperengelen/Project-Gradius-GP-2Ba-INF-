@@ -38,7 +38,6 @@ bool Window::poll_event(sf::Event& ev)
 	return m_window.pollEvent(ev);
 }
 
-
 }} // namespace game::IOhandlers
 
 

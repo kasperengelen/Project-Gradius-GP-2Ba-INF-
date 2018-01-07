@@ -2,7 +2,12 @@
 // @brief Implementation of IOEvent.hpp
 //========================================
 
+// include header
 #include "IOEvent.hpp"
+
+// project includes
+#include "../exception/IOEventException.hpp"
+using game::exception::IOEvent::IOEventInitException;
 
 namespace game {
 namespace IOhandlers {
@@ -49,7 +54,7 @@ IOEvent::IOEvent(const sf::Event& ev)
 		break;
 
 	default:
-		//TODO create exception
+		throw IOEventInitException{"Specified sf::Event::EventType not supported by the IOEvent class."};
 		break;
 	}
 }

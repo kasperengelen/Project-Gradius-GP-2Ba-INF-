@@ -1,36 +1,35 @@
 //================================================
-// @brief Header file for PlayerModel class.
+// @brief Header file for Player class.
 //================================================
 
-#ifndef INCLUDED_MVC_MODEL_PLAYERMODEL_HPP
-#define INCLUDED_MVC_MODEL_PLAYERMODEL_HPP
+#ifndef INCLUDED_ENTITY_PLAYER_HPP
+#define INCLUDED_ENTITY_PLAYER_HPP
 
-#include "DynEntityModel.hpp"
+#include "DynamicEntity.hpp"
 
 namespace game {
-namespace MVC {
-namespace model {
+namespace entity {
 
 /**
  * @brief Model class for Player entity.
  */
-class PlayerModel final : public DynEntityModel
+class Player final : public DynamicEntity
 {
 private:
 	int m_lives;
 public:
-	using ShrPtr = std::shared_ptr<PlayerModel>;
+	using ShrPtr = std::shared_ptr<Player>;
 
 	/**
 	 * @brief Constructor based on a position, direction vector and a number of lives.
 	 *
 	 */
-	PlayerModel(const sf::Vector2f& pos, const int lives);
+	Player(const Vec2D& pos, const int lives);
 
 	/**
 	 * @brief Destructor.
 	 */
-	~PlayerModel(void);
+	~Player(void);
 
 	/**
 	 * @brief Retrieve the amount of lives the player has.
@@ -49,7 +48,7 @@ public:
 
 };
 
-}}} // namespace game::MVC::model
+}} // namespace game::entity
 
-#endif // INCLUDED_MVC_MODEL_PLAYERMODEL_HPP
+#endif // INCLUDED_ENTITY_PLAYER_HPP
 

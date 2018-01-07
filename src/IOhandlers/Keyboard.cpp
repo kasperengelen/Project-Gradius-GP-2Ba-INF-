@@ -194,7 +194,7 @@ bool Keyboard::get_key_change_processed(const KeyCode& key_code) const
 
 void Keyboard::set_key_change_processed(const KeyCode& key_code)
 {
-	m_keymap.at(key_code).update_processed = false;
+	m_keymap.at(key_code).update_processed = true;
 }
 
 bool Keyboard::has_key(const KeyCode& key_code) const
