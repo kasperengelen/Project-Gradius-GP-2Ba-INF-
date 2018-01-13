@@ -3,6 +3,7 @@
 //=======================================
 
 #include "Game.hpp"
+#include "exception/BaseException.hpp"
 
 #include <iostream>
 
@@ -13,8 +14,17 @@
 int main(int argc, char** argv)
 {
 
-	game::Game app{};
-	 app.run();
+	try
+	{
+		game::Game app{};
+		app.run();
+	}
+	catch(const game::exception::BaseException& e)
+	{
+		std::cout << "An error occurred:" << std::endl;
+		std::cout << e.what() << std::endl;
+	}
+
 
 	return 0;
 }

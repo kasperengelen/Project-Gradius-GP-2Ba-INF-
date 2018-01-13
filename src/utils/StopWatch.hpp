@@ -41,7 +41,7 @@ public:
 	 * The template parameter specifies in what time unit the result will be stored.
 	 */
 	template <typename TimeUnit = Sec>
-	const int get(void) const
+	int get(void) const
 	{
 		const auto delta = std::chrono::duration_cast<TimeUnit>(Clock::now() - m_timestamp);
 

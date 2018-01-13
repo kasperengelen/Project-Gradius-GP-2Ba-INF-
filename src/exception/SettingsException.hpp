@@ -40,6 +40,9 @@ protected:
 class LoadFromFileException : public SettingsBaseException
 {
 public:
+	/**
+	 * @brief Constructor based on a reason that the error occurred.
+	 */
 	LoadFromFileException(const std::string& reason)
 		: SettingsBaseException("LOAD_FROM_FILE", reason)
 	{}

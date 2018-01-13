@@ -28,7 +28,7 @@ void Obstacle::set_penalty(const int penalty)
 void Obstacle::do_game_tick(void)
 {}
 
-const std::string Obstacle::to_string(void) const
+std::string Obstacle::to_string(void) const
 {
 	std::stringstream out;
 

@@ -34,8 +34,15 @@ private:
 	IOhandlers::Keyboard::KeyCode m_key_shoot;
 	IOhandlers::Keyboard::KeyCode m_key_quit;
 
+	// aethetics
+	std::string m_font_filename;
+	std::string m_player_bullet_sprite;
+	std::string m_enemy_bullet_sprite;
+
+	// debug
 	bool m_show_hitbox;
 
+	// screen properties
 	unsigned int m_screen_width;
 	unsigned int m_screen_height;
 
@@ -74,6 +81,21 @@ public:
 	 * @brief Retrieve the key code for closing the game.
 	 */
 	IOhandlers::Keyboard::KeyCode get_key_quit(void) const;
+
+	/**
+	 * @brief Retrieve the filename for the font used for printing text.
+	 */
+	const std::string& get_font_filename(void) const;
+
+	/**
+	 * @brief Retrieve the filename of the sprite used to represent player bullets.
+	 */
+	const std::string& get_player_bullet_sprite_filename(void) const;
+
+	/**
+	 * @brief Retrieve the filename of the sprite used to represent enemy bullets.
+	 */
+	const std::string& get_enemy_bullet_sprite_filename(void) const;
 
 	/**
 	 * @brief Determine whether hitboxes of entities need to be rendered.

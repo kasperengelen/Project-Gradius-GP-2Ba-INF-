@@ -38,7 +38,7 @@ void Enemy::do_game_tick(void)
 	ShootingEntity::do_game_tick();
 }
 
-const std::string Enemy::to_string(void) const
+std::string Enemy::to_string(void) const
 {
 	std::stringstream out;
 

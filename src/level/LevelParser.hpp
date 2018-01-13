@@ -12,7 +12,7 @@
 namespace game {
 namespace level {
 
-const Level parse_level(const std::string& json_filename);
+Level parse_level(const std::string& json_filename);
 
 }} // namespace game::level
 

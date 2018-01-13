@@ -60,12 +60,12 @@ bool IOEvent::is_useful(const sf::Event::EventType& type)
 	}
 }
 
-const IOEvent::EventType IOEvent::get_type(void) const
+IOEvent::EventType IOEvent::get_type(void) const
 {
 	return m_type;
 }
 
-const Keyboard::KeyCode IOEvent::get_key(void) const
+Keyboard::KeyCode IOEvent::get_key(void) const
 {
 	return m_key;
 }

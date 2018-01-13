@@ -33,6 +33,10 @@ void Settings::load_from_file(const std::string& filename)
 		m_key_shoot = json_data.at("KEY_SHOOT").get<IOhandlers::Keyboard::KeyCode>();
 		m_key_quit = json_data.at("KEY_QUIT").get<IOhandlers::Keyboard::KeyCode>();
 
+		m_font_filename = json_data.at("FONT").get<std::string>();
+		m_player_bullet_sprite = json_data.at("PLAYER_BULLET_SPRITE").get<std::string>();
+		m_enemy_bullet_sprite = json_data.at("ENEMY_BULLET_SPRITE").get<std::string>();
+
 		m_show_hitbox = json_data.at("SHOW_HITBOX").get<bool>();
 
 		m_screen_width = json_data.at("SCREEN_WIDTH").get<unsigned int>();
@@ -74,6 +78,21 @@ IOhandlers::Keyboard::KeyCode Settings::get_key_shoot(void) const
 IOhandlers::Keyboard::KeyCode Settings::get_key_quit(void) const
 {
 	return m_key_quit;
+}
+
+const std::string& Settings::get_font_filename(void) const
+{
+	return m_font_filename;
+}
+
+const std::string& Settings::get_player_bullet_sprite_filename(void) const
+{
+	return m_player_bullet_sprite;
+}
+
+const std::string& Settings::get_enemy_bullet_sprite_filename(void) const
+{
+	return m_enemy_bullet_sprite;
 }
 
 bool Settings::get_show_hitboxes(void) const

@@ -35,8 +35,9 @@ void Game::run(void)
 	/* CREATE MODEL, CONTROLLER, VIEW */
 	GameModel::ShrPtr model = std::make_shared<GameModel>();
 	GameView::ShrPtr view = std::make_shared<GameView>
-				(IOhandlers::Sprite{"./resources/textures/player_bullet.png"},
-				 IOhandlers::Sprite{"./resources/textures/enemy_bullet.png"});
+				(IOhandlers::Sprite{utils::Settings::get_instance().get_player_bullet_sprite_filename()},
+				 IOhandlers::Sprite{utils::Settings::get_instance().get_enemy_bullet_sprite_filename()},
+				 utils::Settings::get_instance().get_font_filename());
 	model->attach_observer(view);
 	GameController controller{model, view};
 

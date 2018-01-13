@@ -70,7 +70,7 @@ public:
 	/**
 	 * @brief Retrieve textual representation of the player.
 	 */
-	const std::string to_string(void) const override;
+	std::string to_string(void) const override;
 
 };
 

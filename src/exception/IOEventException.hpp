@@ -38,6 +38,9 @@ protected:
 class IOEventInitException : public IOEventBaseException
 {
 public:
+	/**
+	 * @brief Constructor based on a reason that the error occurred.
+	 */
 	IOEventInitException(const std::string& reason)
 		: IOEventBaseException{"INIT", reason}
 	{}

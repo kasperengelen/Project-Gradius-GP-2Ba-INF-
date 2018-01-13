@@ -33,7 +33,7 @@ public:
 	/**
 	 * @brief Retrieve a textual representation of the entity.
 	 */
-	const std::string to_string(void) const override;
+	std::string to_string(void) const override;
 
 };
 

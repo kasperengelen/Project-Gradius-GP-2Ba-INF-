@@ -67,7 +67,7 @@ public:
 	/**
 	 * @brief Retrieve information about the performance. This will return the TPS and FPS.
 	 */
-	const PerformanceInfo get_performance_info(void) const;
+	PerformanceInfo get_performance_info(void) const;
 
 	/**
 	 * @brief Reset the performance profiler.

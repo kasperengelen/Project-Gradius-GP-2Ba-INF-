@@ -16,7 +16,7 @@ FinishLine::FinishLine(const utils::Vec2D& pos,
 void FinishLine::do_game_tick(void)
 {}
 
-const std::string FinishLine::to_string(void) const
+std::string FinishLine::to_string(void) const
 {
 	std::stringstream out;
 

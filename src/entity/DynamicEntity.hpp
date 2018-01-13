@@ -25,9 +25,11 @@ public:
 	 *
 	 * @param[in] pos The initial position of the entity.
 	 * @param[in] size The diameter of the entity.
-	 * @param[in] dir
+	 * @param[in] dir The direction vector of the entity.
 	 */
-	DynamicEntity(const utils::Vec2D& pos, const float size, const utils::Vec2D& dir);
+	DynamicEntity(const utils::Vec2D& pos,
+				  const float size,
+				  const utils::Vec2D& dir);
 
 	/**
 	 * @brief Destructor.

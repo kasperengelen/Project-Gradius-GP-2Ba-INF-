@@ -46,12 +46,12 @@ struct Vec2D
 	/**
 	 * @brief Convert to a sf::Vector2f
 	 */
-	const sf::Vector2f to_sfml(void) const;
+	sf::Vector2f to_sfml(void) const;
 
 	/**
 	 * @brief Retrieve the textual representation of the vector.
 	 */
-	const std::string to_string(void) const;
+	std::string to_string(void) const;
 };
 
 }} // namespace game::utils

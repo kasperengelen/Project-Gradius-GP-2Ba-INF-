@@ -28,7 +28,9 @@ public:
 	 * @param[in] size The diameter of the obstacle.
 	 * @param[in] coll_penalty The amount of lives the player loses on collision with the obstacle.
 	 */
-	Obstacle(const utils::Vec2D& pos, const float size, const int coll_penalty);
+	Obstacle(const utils::Vec2D& pos,
+			 const float size,
+			 const int coll_penalty);
 
 	/**
 	 * @brief Get the amount of lives the player loses on collision.
@@ -48,7 +50,7 @@ public:
 	/**
 	 * @brief Retrieve textual representation of the obstacle.
 	 */
-	const std::string to_string(void) const override;
+	std::string to_string(void) const override;
 };
 
 }} // namespace game::entity

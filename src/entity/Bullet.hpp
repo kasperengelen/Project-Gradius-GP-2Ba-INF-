@@ -30,7 +30,10 @@ public:
 	 * @param[in] dir The direction of the bullet.
 	 * @param[in] damage Amount of lives the player loses on collision with the player.
 	 */
-	Bullet(const utils::Vec2D& pos, const float size, const utils::Vec2D& dir, const int damage);
+	Bullet(const utils::Vec2D& pos,
+		   const float size,
+		   const utils::Vec2D& dir,
+		   const int damage);
 
 	/**
 	 * @brief Retrieve the damage of the bullet.
@@ -50,7 +53,7 @@ public:
 	/**
 	 * @brief Retrieve textual representation of the bullet.
 	 */
-	const std::string to_string(void) const override;
+	std::string to_string(void) const override;
 };
 
 }} // namespace game::entity

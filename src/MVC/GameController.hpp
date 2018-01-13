@@ -25,17 +25,18 @@ private:
 	GameModel::ShrPtr m_model_ptr;
 	GameView::ShrPtr  m_view_ptr;
 
-	// TODO level file queue
-	// TODO function for "load_next_level()"
-
 	// contains a queue of filenames of level JSON files.
 	std::queue<std::string> m_level_queue;
 
 public:
 	/**
-	 * @brief Controller specifying a pointer to a model and a pointer to a view.
+	 * @brief Constructor.
+	 *
+	 * @param[in] model_ptr Pointer to the associated model.
+	 * @param[in] view_ptr Pointer to the associated view.
 	 */
-	GameController(const GameModel::ShrPtr& model_ptr, const GameView::ShrPtr& view_ptr);
+	GameController(const GameModel::ShrPtr& model_ptr,
+				   const GameView::ShrPtr& view_ptr);
 
 	/**
 	 * @brief Destructor.

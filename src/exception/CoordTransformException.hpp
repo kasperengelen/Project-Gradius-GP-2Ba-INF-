@@ -38,6 +38,9 @@ protected:
 class ToScreenCoordException : public CoordTransformBaseException
 {
 public:
+	/**
+	 * @brief Constructor based on a reason that the error occurred.
+	 */
 	ToScreenCoordException(const std::string& reason)
 		: CoordTransformBaseException{"TO_SCREEN_COORD", reason}
 	{}

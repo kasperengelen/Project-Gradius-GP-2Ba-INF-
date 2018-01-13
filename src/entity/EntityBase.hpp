@@ -30,9 +30,10 @@ public:
 	 * @brief Constructor.
 	 *
 	 * @param[in] pos Initial position of the entity.
-	 * @param[in] size Diameter of the entity.
+	 * @param[in] size The diameter of the entity.
 	 */
-	EntityBase(const utils::Vec2D& pos, const float size);
+	EntityBase(const utils::Vec2D& pos,
+			   const float size);
 
 	/**
 	 * @brief Destructor.
@@ -63,7 +64,7 @@ public:
 	/**
 	 * @brief Retrieve textual representation of the entity.
 	 */
-	virtual const std::string to_string(void) const = 0;
+	virtual std::string to_string(void) const = 0;
 
 };
 

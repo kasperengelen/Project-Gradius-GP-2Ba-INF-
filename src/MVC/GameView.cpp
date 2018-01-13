@@ -16,18 +16,19 @@ namespace game {
 namespace MVC {
 
 GameView::GameView(const IOhandlers::Sprite& player_bullet,
-				   const IOhandlers::Sprite& enemy_bullet)
-	: m_player_bullet_sprite{player_bullet},
+				   const IOhandlers::Sprite& enemy_bullet,
+				   const std::string& font_filename)
+	: m_player_lives_text{false},
+	  m_player_bullet_sprite{player_bullet},
 	  m_enemy_bullet_sprite{enemy_bullet},
-	  m_player_lives_text{false},
 	  m_game_over_text{true},
 	  m_game_won_text{true}
 {
 
 	if(not m_player_lives_text.set_font
-			("./resources/font/arial.ttf", IOhandlers::Text::FontColor::WHITE, 26))
+			(font_filename, IOhandlers::Text::FontColor::WHITE, 26))
 	{
-		throw exception::gameview::GameViewInitException{"Cannot initialize font: './resources/font/arial.ttf'"};
+		throw exception::gameview::GameViewInitException{"Cannot initialize font: '" + font_filename + "'"};
 	}
 
 	m_player_lives_text.set_string("Lives: ?");
@@ -35,16 +36,16 @@ GameView::GameView(const IOhandlers::Sprite& player_bullet,
 
 
 	if(not m_game_over_text.set_font
-			("./resources/font/arial.ttf", IOhandlers::Text::FontColor::WHITE, 50))
+			(font_filename, IOhandlers::Text::FontColor::WHITE, 50))
 	{
-		throw exception::gameview::GameViewInitException{"Cannot initialize font: './resources/font/arial.ttf'"};
+		throw exception::gameview::GameViewInitException{"Cannot initialize font: '" + font_filename + "'"};
 	}
 	m_game_over_text.set_string("GAME OVER!");
 
 	if(not m_game_won_text.set_font
-			("./resources/font/arial.ttf", IOhandlers::Text::FontColor::WHITE, 50))
+			(font_filename, IOhandlers::Text::FontColor::WHITE, 50))
 	{
-		throw exception::gameview::GameViewInitException{"Cannot initialize font: './resources/font/arial.ttf'"};
+		throw exception::gameview::GameViewInitException{"Cannot initialize font: '" + font_filename + "'"};
 	}
 	m_game_won_text.set_string("WINNER!");
 }

@@ -83,7 +83,7 @@ public:
 	using ShrPtr = std::shared_ptr<GameModel>;
 
 	/**
-	 * @brief Construct the model.
+	 * @brief Constructor.
 	 */
 	GameModel(void);
 

@@ -4,12 +4,12 @@
 	
 	"PlayerData" : {
 	    "Symbol":"P",
-		"Sprite": "./resources/textures/playership.png",
+		"Sprite": "./resources/textures/stardestroyer.png",
 	    "Size"  : 1.5,
 	    "BulletSpeed" : 0.5,
-	    "BulletSize": 0.3,
+	    "BulletSize": 0.4,
 		"MaxShotsPerSecond": 5.0,
-		"Lives" : 5,
+		"Lives" : 10,
 		"Speed" : 0.03
 	},
 	
@@ -22,19 +22,19 @@
 	"EnemyTypes" : [
 		{
 			"Symbol": "A",
-			"Sprite": "./resources/textures/enemyship.png",
-	    	"Size"  : 0.6,
+			"Sprite": "./resources/textures/ghost_freighter.png",
+	    	"Size"  : 0.7,
 			"Direction" : [-0.1, 0.0],
 		    "BulletSpeed" : 0.1,
-		    "BulletSize": 0.2,
+		    "BulletSize": 0.3,
 			"MaxShotsPerSecond": 0.5,
 			"AttackDamage": 3
 		},
 		{
 			"Symbol": "B",
-			"Sprite": "./resources/textures/enemyship.png",
+			"Sprite": "./resources/textures/bwing.png",
 	    	"Size"  : 0.6,
-			"Direction" : [-0.1, 0.00],
+			"Direction" : [-0.1, 0.0],
 		    "BulletSpeed" : 0.1,
 		    "BulletSize": 0.2,
 			"MaxShotsPerSecond": 0.0,
@@ -44,22 +44,28 @@
 	"ObstacleTypes" : [
 		{
 			"Symbol": "W",
-	    	"Size"  : 1.0,
+	    	"Size"  : 0.9,
 			"CollisionPenalty": 2,
-			"Sprite": "./resources/textures/obstacle.png"
+			"Sprite": "./resources/textures/asteroid.png"
+		},
+        {
+			"Symbol": "O",
+	    	"Size"  : 0.7,
+			"CollisionPenalty": 1,
+			"Sprite": "./resources/textures/construction_module.png"
 		}
 	
 	],
 	
 	"LevelGrid": [
 					["W", "W", "W",  "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W" ],
-					["W", ".", ".",  ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "W" ],
-					["W", ".", ".",  "B", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "F", "W" ],
-					["W", ".", ".",  ".", ".", ".", "A", ".", ".", ".", ".", ".", ".", "A", ".", ".", ".", ".", "F", "W" ],
-					["W", ".", "P",  ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "F", "W" ],
-					["W", ".", ".",  ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "F", "W" ],
-					["W", ".", ".",  ".", ".", ".", ".", ".", ".", ".", ".", "B", ".", ".", ".", ".", ".", ".", ".", "W" ],
-					["W", ".", ".",  ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "W" ],
+					["W", ".", ".",  ".", ".", ".", ".", ".", "O", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "W" ],
+					["W", ".", ".",  "B", ".", ".", ".", ".", ".", ".", ".", ".", "O", "O", ".", ".", "B", ".", "F", "W" ],
+					["W", ".", ".",  ".", ".", ".", "A", ".", ".", ".", "B", ".", ".", "A", ".", ".", ".", ".", "F", "W" ],
+					["W", ".", "P",  ".", "O", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "F", "W" ],
+					["W", ".", ".",  ".", ".", ".", ".", ".", "O", ".", ".", ".", ".", ".", ".", ".", ".", ".", "F", "W" ],
+					["W", ".", ".",  ".", "B", ".", ".", ".", "A", ".", ".", "B", ".", ".", "O", "A", ".", "B", ".", "W" ],
+					["W", ".", ".",  ".", ".", ".", ".", "O", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "W" ],
 					["W", "W", "W",  "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W" ]
 	]
 }

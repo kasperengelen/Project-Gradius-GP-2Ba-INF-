@@ -59,7 +59,7 @@ bool LoopTimer::needs_performance_printout(void) const
 	return (secs_since_last_reset.count() > 1);
 }
 
-const LoopTimer::PerformanceInfo LoopTimer::get_performance_info(void) const
+LoopTimer::PerformanceInfo LoopTimer::get_performance_info(void) const
 {
 	const std::chrono::duration<double> secs_since_last_reset = clock::now() - m_tracker_reset_timestamp;
 

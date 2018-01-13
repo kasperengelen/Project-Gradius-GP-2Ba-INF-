@@ -33,12 +33,12 @@ Vec2D Vec2D::operator+(const Vec2D& rhs) const
 	return {x + rhs.x, y + rhs.y};
 }
 
-const sf::Vector2f Vec2D::to_sfml(void) const
+sf::Vector2f Vec2D::to_sfml(void) const
 {
 	return {x, y};
 }
 
-const std::string Vec2D::to_string(void) const
+std::string Vec2D::to_string(void) const
 {
 	return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
 }

@@ -36,7 +36,7 @@ public:
 	/**
 	 * @brief Initialize a text object.
 	 *
-	 * @param[in] centered Specifies wether the text should be centered.
+	 * @param[in] centered Specifies whether the text should be centered.
 	 */
 	Text(const bool centered);
 

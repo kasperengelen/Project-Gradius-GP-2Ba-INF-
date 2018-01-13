@@ -64,7 +64,7 @@ public:
 	/**
 	 * @brief Retrieve textual representation of the enemy.
 	 */
-	const std::string to_string(void) const override;
+	std::string to_string(void) const override;
 
 };
 

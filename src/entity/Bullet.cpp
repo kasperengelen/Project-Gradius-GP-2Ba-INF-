@@ -32,7 +32,7 @@ void Bullet::do_game_tick(void)
 	DynamicEntity::do_game_tick();
 }
 
-const std::string Bullet::to_string(void) const
+std::string Bullet::to_string(void) const
 {
 	std::stringstream out;
 

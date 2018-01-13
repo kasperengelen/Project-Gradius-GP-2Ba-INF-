@@ -49,12 +49,12 @@ public:
 	/**
 	 * @brief Retrieve the type of the IOEvent.
 	 */
-	const EventType get_type(void) const;
+	EventType get_type(void) const;
 
 	/**
 	 * @brief Retrieve the id of the key.
 	 */
-	const Keyboard::KeyCode get_key(void) const;
+	Keyboard::KeyCode get_key(void) const;
 
 };
 

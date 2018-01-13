@@ -27,7 +27,7 @@ namespace level {
 /**
  * @brief Convert a JSON object to a Vec2D object.
  */
-const Vec2D json_to_vec(const json& j)
+Vec2D json_to_vec(const json& j)
 {
 	return {j.at(0).get<float>(), j.at(1).get<float>()};
 }
@@ -220,7 +220,7 @@ public:
 
 };
 
-const Level parse_level(const std::string& json_filename)
+Level parse_level(const std::string& json_filename)
 {
 	// create a set of level entities from data in the level
 	// store in maps

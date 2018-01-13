@@ -33,7 +33,9 @@ public:
 	 * @param[in] sprite_filename The filename of the sprite of the entity.
 	 * @param[in] size The diameter of the entity.
 	 */
-	LevelEntity(const utils::Vec2D& pos, const std::string& sprite_filename, const float size);
+	LevelEntity(const utils::Vec2D& pos,
+				const std::string& sprite_filename,
+				const float size);
 
 	/**
 	 * @brief Destructor.
@@ -79,6 +81,7 @@ public:
 	 * @param[in] bullet_speed The speed of the bullets that the player shoots.
 	 * @param[in] bullet_size The diameter of the bullets that the player shoots.
 	 * @param[in] max_shots_per_sec The maximum amount of times per second the player can shoot.
+	 * @param[in] lives The amount of lives the player has.
 	 * @param[in] speed The speed of the player.
 	 */
 	LevelPlayer(const utils::Vec2D& pos,

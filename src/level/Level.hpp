@@ -36,8 +36,16 @@ public:
 
 	/**
 	 * @brief Construct a level with the specified height and width.
+	 *
+	 * @param[in] width of the level.
+	 * @param[in] height of the level.
+	 * @param[in] max_x Range of horizontal coordinates that will be displayed on screen.
+	 * @param[in] max_y Range of vertical coordinates that will be displayed on screen.
 	 */
-	Level(const unsigned int width, const unsigned int height, const float max_x, const float max_y);
+	Level(const unsigned int width,
+		  const unsigned int height,
+		  const float max_x,
+		  const float max_y);
 
 	/**
 	 * @brief Retrieve the height of the level.

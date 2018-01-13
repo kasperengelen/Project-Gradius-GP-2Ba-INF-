@@ -35,6 +35,9 @@ protected:
 class GameViewInitException : public GameViewBaseException
 {
 public:
+	/**
+	 * @brief Constructor based on a reason that the error occurred.
+	 */
 	GameViewInitException(const std::string& reason)
 		: GameViewBaseException{"INIT", reason}
 	{}

@@ -49,7 +49,7 @@ void Player::do_game_tick(void)
 	utils::CoordTransform::get_instance().update_player_pos(this->get_position());
 }
 
-const std::string Player::to_string(void) const
+std::string Player::to_string(void) const
 {
 	std::stringstream out;
 

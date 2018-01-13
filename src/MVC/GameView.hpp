@@ -51,13 +51,15 @@ public:
 	using ShrPtr = std::shared_ptr<GameView>;
 
 	/**
-	 * @brief Construct a game view;
+	 * @brief Constructor.
 	 *
 	 * @param[in] player_bullet The sprite that is used to represent a player bullet.
 	 * @param[in] enemy_bullet The sprite that is used to represent an enemy bullet.
+	 * @param[in] font_filename Filename of the font file that is used for the text.
 	 */
 	GameView(const IOhandlers::Sprite& player_bullet,
-		     const IOhandlers::Sprite& enemy_bullet);
+		     const IOhandlers::Sprite& enemy_bullet,
+			 const std::string& font_filename);
 
 	/**
 	 * @brief Destructor.
