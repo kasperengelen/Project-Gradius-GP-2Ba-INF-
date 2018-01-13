@@ -326,15 +326,6 @@ void GameModel::add_finish_line(const entity::FinishLine::ShrPtr& finish_line)
 	m_finish_lines.push_back(finish_line);
 }
 
-void GameModel::clear_entities(void)
-{
-	m_enemies.clear();
-	m_obstacles.clear();
-	m_bullets_enemy.clear();
-	m_bullets_player.clear();
-	m_finish_lines.clear();
-}
-
 bool GameModel::game_over(void) const
 {
 	return m_game_over;
@@ -356,9 +347,18 @@ void GameModel::set_game_won(void)
 	M_notify_observers(std::make_shared<observer::GameWon>());
 }
 
-void GameModel::debug_kill_player(void)
+void GameModel::reset_model(void)
 {
-	M_handle_player_death(1);
+	m_level_complete = false;
+	m_game_over = false;
+	m_game_won = false;
+
+	m_player = nullptr;
+	m_enemies.clear();
+	m_obstacles.clear();
+	m_finish_lines.clear();
+	m_bullets_enemy.clear();
+	m_bullets_player.clear();
 }
 
 }} // namespace game::MVC

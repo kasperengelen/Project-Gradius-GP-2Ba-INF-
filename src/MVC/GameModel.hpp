@@ -138,11 +138,6 @@ public:
 	void add_finish_line(const entity::FinishLine::ShrPtr& finish_line);
 
 	/**
-	 * @brief Clear all entities present in the model.
-	 */
-	void clear_entities(void);
-
-	/**
 	 * @brief Determine if the player has lost.
 	 */
 	bool game_over(void) const;
@@ -162,8 +157,11 @@ public:
 	 */
 	void set_game_won(void);
 
-	// TODO remove debug
-	void debug_kill_player(void);
+	/**
+	 * @brief Reset the model.
+	 */
+	void reset_model(void);
+
 };
 
 }} // namespace game::MVC

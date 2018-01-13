@@ -142,10 +142,8 @@ void GameController::load_next_level(void)
 	const Level next_level = level::parse_level(m_level_queue.front());
 	m_level_queue.pop();
 
-	// clear all entities in model
-	m_model_ptr->clear_entities();
-
-	// update CoordTransform
+	// reset the model
+	m_model_ptr->reset_model();
 
 	utils::CoordTransform::get_instance().update_level_width(next_level.get_width());
 	utils::CoordTransform::get_instance().update_level_height(next_level.get_height());
