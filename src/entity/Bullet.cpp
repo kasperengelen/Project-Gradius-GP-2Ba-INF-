@@ -4,12 +4,17 @@
 
 #include "Bullet.hpp"
 
+#include <sstream>
 
 namespace game {
 namespace entity {
 
-Bullet::Bullet(const Vec2D& pos, const Vec2D& dir, const int damage)
-	: DynamicEntity{pos, dir}, m_damage{damage}
+Bullet::Bullet(const utils::Vec2D& pos,
+			   const float size,
+			   const utils::Vec2D& dir,
+			   const int damage)
+	: DynamicEntity{pos, size, dir},
+	  m_damage{damage}
 {}
 
 int Bullet::get_damage(void) const
@@ -24,7 +29,20 @@ void Bullet::set_damage(const int damage)
 
 void Bullet::do_game_tick(void)
 {
-	this->set_position(this->get_position() + this->get_direction());
+	DynamicEntity::do_game_tick();
+}
+
+const std::string Bullet::to_string(void) const
+{
+	std::stringstream out;
+
+	out << "==BULLET==" << std::endl;
+	out << "Pos: " << this->get_position().to_string() << std::endl;
+	out << "Size: " << this->get_size() << std::endl;
+	out << "Dir: " << this->get_direction().to_string() << std::endl;
+	out << "Damage: " << this->get_damage() << std::endl;
+
+	return out.str();
 }
 
 }} // namespace game::entity

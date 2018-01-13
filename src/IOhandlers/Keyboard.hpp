@@ -16,7 +16,7 @@ namespace IOhandlers {
 /**
  * @brief Class that encapsulates the keyboard.
  */
-class Keyboard: public game::misc::Singleton<Keyboard>
+class Keyboard: public utils::Singleton<Keyboard>
 {
 public:
 	/**

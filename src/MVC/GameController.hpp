@@ -2,18 +2,14 @@
 // @brief Header file for GameController class.
 //=========================================================
 
-#ifndef INCLUDED_MVC_CONTROLLER_GAMECONTROLLER_HPP
-#define INCLUDED_MVC_CONTROLLER_GAMECONTROLLER_HPP
+#ifndef INCLUDED_MVC_GAMECONTROLLER_HPP
+#define INCLUDED_MVC_GAMECONTROLLER_HPP
 
 // project includes
 #include "GameModel.hpp"
-using game::MVC::GameModel;
 #include "GameView.hpp"
-using game::MVC::GameView;
 #include "../IOhandlers/IOEvent.hpp"
-using game::IOhandlers::IOEvent;
 #include "../level/Level.hpp"
-using game::level::Level;
 
 namespace game {
 namespace MVC {
@@ -26,6 +22,9 @@ class GameController final
 private:
 	GameModel::ShrPtr m_model_ptr;
 	GameView::ShrPtr  m_view_ptr;
+
+	// TODO level file queue
+	// TODO function for "load_next_level()"
 
 public:
 	/**
@@ -46,19 +45,15 @@ public:
 	/**
 	 * @brief Send an event to the controller.
 	 */
-	void handle_event(const IOEvent& event);
+	void handle_event(const IOhandlers::IOEvent& event);
 
 	// TODO remove debug method
-	void debug_load_level(const Level& level);
-
-	// TODO remove debug method
-	void debug_add_entity(const EntityBase::ShrPtr& entity_model_ptr, const EntityRepresentation::ShrPtr& entity_rep_ptr);
-
+	void debug_load_level(const level::Level& level);
 };
 
 }} // namespace game::MVC
 
 
-#endif // INCLUDED_MVC_CONTROLLER_GAMECONTROLLER_HPP
+#endif // INCLUDED_MVC_GAMECONTROLLER_HPP
 
 

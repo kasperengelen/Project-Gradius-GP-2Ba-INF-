@@ -7,7 +7,6 @@
 
 #include "EntityBase.hpp"
 
-
 namespace game {
 namespace entity {
 
@@ -17,14 +16,18 @@ namespace entity {
 class DynamicEntity : public EntityBase
 {
 private:
-	Vec2D m_dir;
+	utils::Vec2D m_dir;
 public:
 	using ShrPtr = std::shared_ptr<DynamicEntity>;
 
 	/**
-	 * @brief Constructor based on a position and a direction vector.
+	 * @brief Constructor.
+	 *
+	 * @param[in] pos The initial position of the entity.
+	 * @param[in] size The diameter of the entity.
+	 * @param[in] dir
 	 */
-	DynamicEntity(const Vec2D& pos, const Vec2D& dir);
+	DynamicEntity(const utils::Vec2D& pos, const float size, const utils::Vec2D& dir);
 
 	/**
 	 * @brief Destructor.
@@ -34,17 +37,17 @@ public:
 	/**
 	 * @brief Retrieve the direction vector of the entity.
 	 */
-	const Vec2D& get_direction(void) const;
+	const utils::Vec2D& get_direction(void) const;
 
 	/**
 	 * @brief Set the direction vector of the entity.
 	 */
-	void set_direction(const Vec2D& dir);
+	void set_direction(const utils::Vec2D& dir);
 
 	/**
 	 * @brief Perform a game tick.
 	 */
-	virtual void do_game_tick(void) override = 0;
+	virtual void do_game_tick(void) override;
 };
 
 }} // namespace game::entity

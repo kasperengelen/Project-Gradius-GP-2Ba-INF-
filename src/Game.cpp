@@ -9,25 +9,17 @@
 #include "MVC/GameController.hpp"
 #include "MVC/GameView.hpp"
 
+#include "IOhandlers/Window.hpp"
+#include "utils/LoopTimer.hpp"
+#include "utils/CoordTransform.hpp"
+#include "utils/Settings.hpp"
+
+#include "level/LevelParser.hpp"
+
 using game::MVC::GameController;
 using game::MVC::GameModel;
 using game::MVC::GameView;
 
-#include "entity/Player.hpp"
-#include "entity/EntityRepresentation.hpp"
-
-using game::entity::Player;
-using game::entity::EntityRepresentation;
-
-#include "entity/Enemy.hpp"
-using game::entity::Enemy;
-
-#include "entity/Bullet.hpp"
-using game::entity::Bullet;
-
-#include "IOhandlers/Window.hpp"
-#include "IOhandlers/Sprite.hpp"
-#include "utils/LoopTimer.hpp"
 #include <iostream>
 
 namespace game {
@@ -37,47 +29,24 @@ Game::Game(void)
 
 void Game::run(void)
 {
-
-	GameModel::ShrPtr model = std::make_shared<GameModel>();                           // contains logic
-	GameView::ShrPtr view = std::make_shared<GameView>(model);                         // renders the model
-	GameController controller{model, view}; // sends input to the model
+	utils::Settings::get_instance().load_from_file("./resources/settings.json");
 
 
-	// add player to Game
-	{
-		Player::ShrPtr player_model = std::make_shared<Player>(Vec2D{1,1}, 5);
-		EntityRepresentation::ShrPtr player_view
-				= std::make_shared<EntityRepresentation>
-					(player_model, IOhandlers::Sprite{"./resources/textures/playership.png"});
+	/* CREATE MODEL, CONTROLLER, VIEW */
+	GameModel::ShrPtr model = std::make_shared<GameModel>();
+	GameView::ShrPtr view = std::make_shared<GameView>
+				(IOhandlers::Sprite{"./resources/textures/player_bullet.png"},
+				 IOhandlers::Sprite{"./resources/textures/enemy_bullet.png"});
+	model->attach_observer(view);
+	GameController controller{model, view};
 
-		// TODO ADD_PLAYER
-		model->set_player(player_model);
-		view->add_entity_representation(player_view);
-	}
+	level::Level level1 = level::parse_level("./resources/levels/test_level.json");
 
-	// add enemy to Game
-	for(const int i : {100,200,300,400,500})
-	{
-		Enemy::ShrPtr enemy_model = std::make_shared<Enemy>(Vec2D{1000,(float)i}, Vec2D{-5, 0});
-		EntityRepresentation::ShrPtr enemy_view
-				= std::make_shared<EntityRepresentation>
-					(enemy_model, IOhandlers::Sprite{"./resources/textures/enemyship.png"});
 
-		controller.debug_add_entity(enemy_model, enemy_view);
-	}
+	controller.debug_load_level(level1);
 
-	// add bullet to the game
-	{
-		Bullet::ShrPtr bullet_model
-				= std::make_shared<Bullet>(Vec2D{1000, 500}, Vec2D{-15, 0}, 50);
-		EntityRepresentation::ShrPtr bullet_view
-				= std::make_shared<EntityRepresentation>
-					(bullet_model, IOhandlers::Sprite{"./resources/textures/bullet.png"});
-
-		controller.debug_add_entity(bullet_model, bullet_view);
-	}
-
-	game::IOhandlers::Window window{"Gradius", 1100, 600};
+	game::IOhandlers::Window window{"Gradius", 800, 600};
+	utils::CoordTransform::get_instance().update_screen_size(window.get_width(), window.get_height());
 	window.clear();
 
 	game::utils::LoopTimer timer{20};
@@ -89,16 +58,29 @@ void Game::run(void)
 		sf::Event ev;
 		while(window.poll_event(ev))
 		{
-			// basic event handling
-			if(ev.type == sf::Event::Closed)
-				running = false;
-			else if(ev.type == sf::Event::Resized)
-				window.update_view();
-			else if(ev.type == sf::Event::KeyPressed and ev.key.code == sf::Keyboard::Escape)
-				running = false;
 			// determine if event is useful
 			if (IOhandlers::IOEvent::is_useful(ev.type))
-				controller.handle_event(IOhandlers::IOEvent{ev});
+			{
+
+				const IOhandlers::IOEvent io_ev{ev};
+
+				if(io_ev.get_type() == IOhandlers::IOEvent::EventType::WINDOW_CLOSE)
+				{
+					running = false;
+				}
+				else if (io_ev.get_type() == IOhandlers::IOEvent::EventType::WINDOW_RESIZE)
+				{
+					window.update_view();
+					utils::CoordTransform::get_instance().update_screen_size(window.get_width(), window.get_height());
+				}
+				else if(io_ev.get_type() == IOhandlers::IOEvent::EventType::KEY_DOWN
+							and io_ev.get_key() == utils::Settings::get_instance().get_key_quit())
+				{
+					running = false;
+				}
+
+				controller.handle_event(io_ev);
+			}
 		}
 
 		while(timer.is_tick_needed())
@@ -111,6 +93,7 @@ void Game::run(void)
 		// draw view to window
 		view->render(window);
 		window.swap_buffers();
+
 		timer.report_render_done();
 
 		if(timer.needs_performance_printout())

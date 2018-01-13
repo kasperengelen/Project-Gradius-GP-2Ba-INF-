@@ -6,6 +6,7 @@
 #define INCLUDED_ENTITY_BULLET_HPP
 
 #include "DynamicEntity.hpp"
+#include "../utils/Vec2D.hpp"
 
 namespace game {
 namespace entity {
@@ -18,10 +19,18 @@ class Bullet : public DynamicEntity
 private:
 	int m_damage;
 public:
+	using ShrPtr = std::shared_ptr<Bullet>;
+	using WkPtr = std::weak_ptr<Bullet>;
+
 	/**
-	 * @brief Construct bullet based on a position, direction, amount of damage.
+	 * @brief Constructor.
+	 *
+	 * @param[in] pos The initial position of the bullet.
+	 * @param[in] size The diameter of the bullet.
+	 * @param[in] dir The direction of the bullet.
+	 * @param[in] damage Amount of lives the player loses on collision with the player.
 	 */
-	Bullet(const Vec2D& pos, const Vec2D& dir, const int damage);
+	Bullet(const utils::Vec2D& pos, const float size, const utils::Vec2D& dir, const int damage);
 
 	/**
 	 * @brief Retrieve the damage of the bullet.
@@ -37,6 +46,11 @@ public:
 	 * @brief Perform a game tick.
 	 */
 	void do_game_tick(void) override;
+
+	/**
+	 * @brief Retrieve textual representation of the bullet.
+	 */
+	const std::string to_string(void) const override;
 };
 
 }} // namespace game::entity

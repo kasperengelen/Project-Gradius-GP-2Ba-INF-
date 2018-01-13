@@ -15,7 +15,7 @@ namespace utils {
 /**
  * @brief Class that implements a simple stopwatch.
  */
-class StopWatch: public game::misc::Singleton<StopWatch>
+class StopWatch: public Singleton<StopWatch>
 {
 public:
 	using TimeStamp = std::chrono::steady_clock::time_point;

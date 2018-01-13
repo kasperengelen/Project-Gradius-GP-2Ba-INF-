@@ -172,29 +172,48 @@ Keyboard::Keyboard(void)
 
 void Keyboard::press_key(const KeyCode& key_code)
 {
-	m_keymap.at(key_code).pressed = true;
-	m_keymap.at(key_code).update_processed = false;
+	if(this->has_key(key_code))
+	{
+		m_keymap.at(key_code).pressed = true;
+		m_keymap.at(key_code).update_processed = false;
+	}
 }
 
 void Keyboard::release_key(const KeyCode& key_code)
 {
-	m_keymap.at(key_code).pressed = false;
-	m_keymap.at(key_code).update_processed = false;
+	if(this->has_key(key_code))
+	{
+		m_keymap.at(key_code).pressed = false;
+		m_keymap.at(key_code).update_processed = false;
+	}
 }
 
 bool Keyboard::get_key_state(const KeyCode& key_code) const
 {
+	if(not this->has_key(key_code))
+	{
+		return false;
+	}
+
 	return m_keymap.at(key_code).pressed;
 }
 
 bool Keyboard::get_key_change_processed(const KeyCode& key_code) const
 {
+	if(not this->has_key(key_code))
+	{
+		return false;
+	}
+
 	return m_keymap.at(key_code).update_processed;
 }
 
 void Keyboard::set_key_change_processed(const KeyCode& key_code)
 {
-	m_keymap.at(key_code).update_processed = true;
+	if(this->has_key(key_code))
+	{
+		m_keymap.at(key_code).update_processed = true;
+	}
 }
 
 bool Keyboard::has_key(const KeyCode& key_code) const

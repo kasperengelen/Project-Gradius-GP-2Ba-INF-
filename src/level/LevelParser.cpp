@@ -7,18 +7,19 @@
 #include "Level.hpp"
 
 #include "../lib/json.hpp"
-using nlohmann::json;
 
 #include "../exception/LevelException.hpp"
-using game::exception::level::LevelLoadException;
 
 #include "../utils/Vec2D.hpp"
-using game::utils::Vec2D;
 
 #include <map>
 #include <string>
 #include <fstream>
 #include <iostream>
+
+using nlohmann::json;
+using game::exception::level::LevelLoadException;
+using game::utils::Vec2D;
 
 namespace game {
 namespace level {
@@ -55,7 +56,7 @@ public:
 	/**
 	 * @brief Convert the stored specification to an actual LevelEntity.
 	 */
-	virtual LevelEntity::UnqPtr to_level_entity(const Vec2D& pos) const = 0;
+	virtual LevelEntity::ShrPtr to_level_entity(const Vec2D& pos) const = 0;
 };
 
 /**
@@ -65,24 +66,48 @@ class PlayerTemplate final: public EntityTemplate
 {
 private:
 	const std::string m_sprite_filename;
+	const float       m_size;
+	const float       m_bullet_speed;
+	const float       m_bullet_size;
+	const float       m_max_shots_per_sec;
 	const int         m_lives;
-	const float       m_max_speed;
+	const float       m_speed;
 public:
 	/**
 	 * @brief Constructor.
 	 */
-	PlayerTemplate(const std::string& sprite_filename, const int lives, const float max_speed)
+	PlayerTemplate(const std::string& sprite_filename,
+				   const float size,
+				   const float bullet_speed,
+				   const float bullet_size,
+				   const float max_shots_per_sec,
+				   const int lives,
+				   const float speed)
 		: m_sprite_filename{sprite_filename},
+		  m_size{size},
+		  m_bullet_speed{bullet_speed},
+		  m_bullet_size{bullet_size},
+		  m_max_shots_per_sec{max_shots_per_sec},
 		  m_lives{lives},
-		  m_max_speed{max_speed}
+		  m_speed{speed}
 	{}
 
 	/**
 	 * @brief Convert to level entity.
 	 */
-	LevelEntity::UnqPtr to_level_entity(const Vec2D& pos) const override
+	LevelEntity::ShrPtr to_level_entity(const Vec2D& pos) const override
 	{
-		return std::make_unique<LevelPlayer>(pos, m_sprite_filename, m_lives, m_max_speed);
+		return std::make_shared<LevelPlayer>
+										(
+												pos,
+												m_sprite_filename,
+												m_size,
+												m_bullet_speed,
+												m_bullet_size,
+												m_max_shots_per_sec,
+												m_lives,
+												m_speed
+										);
 	}
 };
 
@@ -93,24 +118,48 @@ class EnemyTemplate final: public EntityTemplate
 {
 private:
 	const std::string m_sprite_filename;
+	const float       m_size;
 	const Vec2D       m_direction;
+	const float       m_bullet_speed;
+	const float       m_bullet_size;
+	const float       m_max_shots_per_sec;
 	const int         m_attack_damage;
 public:
 	/**
 	 * @brief Constructor.
 	 */
-	EnemyTemplate(const std::string& sprite_filename, const Vec2D& dir, const int attack_damage)
+	EnemyTemplate(const std::string& sprite_filename,
+				  const float size,
+				  const Vec2D& dir,
+				  const float bullet_speed,
+				  const float bullet_size,
+				  const float m_max_shots_per_sec,
+				  const int attack_damage)
 		: m_sprite_filename{sprite_filename},
+		  m_size{size},
 		  m_direction{dir},
+		  m_bullet_speed{bullet_speed},
+		  m_bullet_size{bullet_size},
+		  m_max_shots_per_sec{m_max_shots_per_sec},
 		  m_attack_damage{attack_damage}
 	{}
 
 	/**
 	 * @brief Convert to level entity.
 	 */
-	LevelEntity::UnqPtr to_level_entity(const Vec2D& pos) const override
+	LevelEntity::ShrPtr to_level_entity(const Vec2D& pos) const override
 	{
-		return std::make_unique<LevelEnemy>(pos, m_sprite_filename, m_direction, m_attack_damage);
+		return std::make_shared<LevelEnemy>
+									(
+											pos,
+											m_sprite_filename,
+											m_size,
+											m_direction,
+											m_bullet_speed,
+											m_bullet_size,
+											m_max_shots_per_sec,
+											m_attack_damage
+									);
 	}
 };
 
@@ -121,23 +170,54 @@ class ObstacleTemplate final: public EntityTemplate
 {
 private:
 	const std::string m_sprite_filename;
+	const float       m_size;
 	const int 		  m_collision_penalty;
 public:
 	/**
 	 * @brief Constructor.
 	 */
-	ObstacleTemplate(const std::string& sprite_filename, const int collision_penalty)
+	ObstacleTemplate(const std::string& sprite_filename,
+					 const float size,
+					 const int collision_penalty)
 		: m_sprite_filename{sprite_filename},
+		  m_size{size},
 		  m_collision_penalty{collision_penalty}
 	{}
 
 	/**
 	 * @brief Convert to level entity.
 	 */
-	LevelEntity::UnqPtr to_level_entity(const Vec2D& pos) const override
+	LevelEntity::ShrPtr to_level_entity(const Vec2D& pos) const override
 	{
-		return std::make_unique<LevelObstacle>(pos, m_sprite_filename, m_collision_penalty);
+		return std::make_shared<LevelObstacle>(pos, m_sprite_filename, m_size, m_collision_penalty);
 	}
+};
+
+/**
+ * @brief Class to store FinishLine specifications.
+ */
+class FinishLineTemplate final : public EntityTemplate
+{
+private:
+	const std::string m_sprite_filename;
+	const float       m_size;
+public:
+	/**
+	 * @brief Constructor.
+	 */
+	FinishLineTemplate(const std::string& sprite_filename,
+					   const float size)
+		: m_sprite_filename{sprite_filename}, m_size{size}
+	{}
+
+	/**
+	 * @brief Convert to level entity.
+	 */
+	LevelEntity::ShrPtr to_level_entity(const Vec2D& pos) const override
+	{
+		return std::make_shared<LevelFinishLine>(pos, m_sprite_filename, m_size);
+	}
+
 };
 
 const Level parse_level(const std::string& json_filename)
@@ -163,25 +243,31 @@ const Level parse_level(const std::string& json_filename)
 	////////////////////////////////////////////////////////////////////
 	// load "PlayerData"
 	////////////////////////////////////////////////////////////////////
+	std::string player_symbol;
+
 	try
 	{
+		player_symbol = json_data.at("PlayerData").at("Symbol").get<std::string>();
+
 		EntityTemplate::UnqPtr player_templ
 				= std::make_unique<PlayerTemplate>
 								(
 									json_data.at("PlayerData").at("Sprite").get<std::string>(),
+									json_data.at("PlayerData").at("Size").get<float>(),
+									json_data.at("PlayerData").at("BulletSpeed").get<float>(),
+									json_data.at("PlayerData").at("BulletSize").get<float>(),
+									json_data.at("PlayerData").at("MaxShotsPerSecond").get<float>(),
 									json_data.at("PlayerData").at("Lives").get<int>(),
-									json_data.at("PlayerData").at("MaxSpeed").get<float>()
+									json_data.at("PlayerData").at("Speed").get<float>()
 								);
 
-		const std::string symbol = json_data.at("PlayerData").at("Symbol").get<std::string>();
-
-		if(entity_templates.count(symbol)) {
-			throw LevelLoadException{json_filename, "Duplicate symbol: '" + symbol + "'."};
-		} else if (symbol == ".") {
+		if(entity_templates.count(player_symbol)) {
+			throw LevelLoadException{json_filename, "Duplicate symbol: '" + player_symbol + "'."};
+		} else if (player_symbol == ".") {
 			throw LevelLoadException{json_filename, "Cannot use '.' as symbol."};
 		}
 
-		entity_templates.insert(std::make_pair(symbol, std::move(player_templ)));
+		entity_templates.insert(std::make_pair(player_symbol, std::move(player_templ)));
 	}
 	catch(const LevelLoadException& e)
 	{
@@ -191,6 +277,40 @@ const Level parse_level(const std::string& json_filename)
 	catch(...)
 	{
 		throw LevelLoadException{json_filename, "Cannot retrieve player data."};
+	}
+
+	////////////////////////////////////////////////////////////////////
+	// load "FinishLine"
+	////////////////////////////////////////////////////////////////////
+	std::string finishline_symbol;
+
+	try
+	{
+		finishline_symbol = json_data.at("FinishLine").at("Symbol").get<std::string>();
+
+		EntityTemplate::UnqPtr finishline_templ
+				= std::make_unique<FinishLineTemplate>
+								(
+									json_data.at("FinishLine").at("Sprite").get<std::string>(),
+									json_data.at("FinishLine").at("Size").get<float>()
+								);
+
+		if(entity_templates.count(finishline_symbol)) {
+			throw LevelLoadException{json_filename, "Duplicate symbol: '" + finishline_symbol + "'."};
+		} else if (finishline_symbol == ".") {
+			throw LevelLoadException{json_filename, "Cannot use '.' as symbol."};
+		}
+
+		entity_templates.insert(std::make_pair(finishline_symbol, std::move(finishline_templ)));
+	}
+	catch(const LevelLoadException& e)
+	{
+		// rethrow custom exception.
+		throw;
+	}
+	catch(...)
+	{
+		throw LevelLoadException{json_filename, "Cannot retrieve finish line data."};
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -205,7 +325,11 @@ const Level parse_level(const std::string& json_filename)
 					= std::make_unique<EnemyTemplate>
 									(
 										iterated_enemy.at("Sprite").get<std::string>(),
+										iterated_enemy.at("Size").get<float>(),
 							json_to_vec(iterated_enemy.at("Direction")),
+										iterated_enemy.at("BulletSpeed").get<float>(),
+										iterated_enemy.at("BulletSize").get<float>(),
+										iterated_enemy.at("MaxShotsPerSecond").get<float>(),
 										iterated_enemy.at("AttackDamage").get<int>()
 									);
 
@@ -241,6 +365,7 @@ const Level parse_level(const std::string& json_filename)
 					= std::make_unique<ObstacleTemplate>
 									(
 										iterated_obstacle.at("Sprite").get<std::string>(),
+										iterated_obstacle.at("Size").get<float>(),
 										iterated_obstacle.at("CollisionPenalty").get<int>()
 									);
 
@@ -251,6 +376,7 @@ const Level parse_level(const std::string& json_filename)
 			} else if (symbol == ".") {
 				throw LevelLoadException{json_filename, "Cannot use '.' as symbol."};
 			}
+
 
 			entity_templates.insert(std::make_pair(symbol, std::move(obstacle_templ)));
 		}
@@ -268,11 +394,33 @@ const Level parse_level(const std::string& json_filename)
 	// Load entities into Level
 	////////////////////////////////////////////////////////////////////
 
+
+
 	// list of lists, outer list needs to be reversed, inner list is in correct order
 	const auto& grid = json_data.at("LevelGrid").get<std::vector<std::vector<std::string>>>();
 
+	const float max_x = json_data.at("MaxXCoord").get<float>();
+	const float max_y = json_data.at("MaxYCoord").get<float>();
+
+
 	// create level object
-	Level retval{grid.at(0).size(), grid.size()};
+	Level retval{grid.at(0).size(), grid.size(), max_x, max_y};
+
+	if(retval.get_width() < max_x)
+	{
+		throw LevelLoadException{json_filename, "Not enough columns in level grid."};
+	}
+
+	if(retval.get_height() < max_y)
+	{
+		throw LevelLoadException{json_filename, "Not enough rows in level grid."};
+	}
+
+	// track whether player is found
+	bool player_found = false;
+
+	// track whether
+	bool finishline_found = false;
 
 	// reverse iterate since the lowest row of the grid has the lowest coordinate
 	// but appears last
@@ -291,12 +439,30 @@ const Level parse_level(const std::string& json_filename)
 			if(symbol == ".")
 			{
 				// empty spot
+				col++;
 				continue;
 			}
 			else if(entity_templates.count(symbol))
 			{
+				// special case for unique player
+				if(symbol == player_symbol)
+				{
+					if(player_found)
+					{
+						throw LevelLoadException{json_filename, "Duplicate player."};
+					}
+					else
+					{
+						player_found = true;
+					}
+				}
+				else if(symbol == finishline_symbol)
+				{
+					finishline_found = true;
+				}
+
 				// add entity to level.
-				retval.add_entity(entity_templates.at(symbol)->to_level_entity(Vec2D{col, row}));
+				retval.add_entity(entity_templates.at(symbol)->to_level_entity(Vec2D{(float)col + 0.5f, (float) row + 0.5f}));
 			}
 			else
 			{
@@ -306,6 +472,16 @@ const Level parse_level(const std::string& json_filename)
 			col++;
 		}
 		row++;
+	}
+
+	if(not player_found)
+	{
+		throw LevelLoadException{json_filename, "Player not specified in level grid."};
+	}
+
+	if(not finishline_found)
+	{
+		throw LevelLoadException{json_filename, "Finish line not specified in level grid."};
 	}
 
 	// return level

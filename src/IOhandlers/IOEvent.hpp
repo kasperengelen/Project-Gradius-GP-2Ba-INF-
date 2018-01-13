@@ -6,7 +6,6 @@
 #define INCLUDED_IOHANDLERS_IOEVENT_HPP
 
 #include "Keyboard.hpp"
-#include "Mouse.hpp"
 
 #include <SFML/Window.hpp>
 
@@ -24,22 +23,16 @@ public:
 	 */
 	enum class EventType
 	{
-		WINDOW_CLOSE, // game window is closed
-		KEY_UP,       // keyboard key released
-		KEY_DOWN,     // keyboard key pressed
-		MOUSE_UP,     // mouse button released
-		MOUSE_DOWN,   // mouse button pressed
-		MOUSE_MOVE    // mouse has moved
+		WINDOW_CLOSE,  // game window is closed
+		WINDOW_RESIZE, // game window is resized
+		KEY_UP,        // keyboard key released
+		KEY_DOWN,      // keyboard key pressed
 	};
 
 private:
 	EventType m_type;
 
 	Keyboard::KeyCode m_key;
-
-	Mouse::ButtonCode m_mousebutton;
-
-	Mouse::CursorLocation m_mouselocation;
 
 public:
 	/**
@@ -63,15 +56,6 @@ public:
 	 */
 	const Keyboard::KeyCode get_key(void) const;
 
-	/**
-	 * @brief Retrieve the id of the mousebutton.
-	 */
-	const Mouse::ButtonCode get_mouse_button(void) const;
-
-	/**
-	 * @brief Retrieve the new location of the cursor.
-	 */
-	const Mouse::CursorLocation get_mouse_movement(void) const;
 };
 
 }} // namespace game::IOhandlers::IOEvent

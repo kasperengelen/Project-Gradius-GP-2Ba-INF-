@@ -13,7 +13,7 @@ namespace game {
 namespace IOhandlers {
 
 IOEvent::IOEvent(const sf::Event& ev)
-	: m_type{}, m_key{}, m_mousebutton{}, m_mouselocation{0,0}
+	: m_type{}, m_key{}
 {
 	switch(ev.type)
 	{
@@ -29,28 +29,12 @@ IOEvent::IOEvent(const sf::Event& ev)
 
 		break;
 
-	case sf::Event::EventType::MouseButtonReleased:
-		m_type = EventType::MOUSE_UP;
-		m_mousebutton = Mouse::translate_buttoncode_from_sfml(ev.mouseButton.button);
-		m_mouselocation = {ev.mouseMove.x, ev.mouseMove.y};
-
-		break;
-
-	case sf::Event::EventType::MouseButtonPressed:
-		m_type = EventType::MOUSE_DOWN;
-		m_mousebutton = Mouse::translate_buttoncode_from_sfml(ev.mouseButton.button);
-		m_mouselocation = {ev.mouseMove.x, ev.mouseMove.y};
-
-		break;
-
-	case sf::Event::EventType::MouseMoved:
-		m_type = EventType::MOUSE_MOVE;
-		m_mouselocation = {ev.mouseMove.x, ev.mouseMove.y};
-
-		break;
-
 	case sf::Event::EventType::Closed:
 		m_type = EventType::WINDOW_CLOSE;
+		break;
+
+	case sf::Event::EventType::Resized:
+		m_type = EventType::WINDOW_RESIZE;
 		break;
 
 	default:
@@ -69,11 +53,7 @@ bool IOEvent::is_useful(const sf::Event::EventType& type)
 		return true;
 	case sf::Event::EventType::KeyReleased:
 		return true;
-	case sf::Event::EventType::MouseButtonPressed:
-		return true;
-	case sf::Event::EventType::MouseButtonReleased:
-		return true;
-	case sf::Event::EventType::MouseMoved:
+	case sf::Event::EventType::Resized:
 		return true;
 	default:
 		return false;
@@ -88,16 +68,6 @@ const IOEvent::EventType IOEvent::get_type(void) const
 const Keyboard::KeyCode IOEvent::get_key(void) const
 {
 	return m_key;
-}
-
-const Mouse::ButtonCode IOEvent::get_mouse_button(void) const
-{
-	return m_mousebutton;
-}
-
-const Mouse::CursorLocation IOEvent::get_mouse_movement(void) const
-{
-	return m_mouselocation;
 }
 
 

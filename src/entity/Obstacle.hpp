@@ -17,11 +17,18 @@ class Obstacle : public EntityBase
 {
 private:
 	int m_coll_penalty;
+
 public:
+	using ShrPtr = std::shared_ptr<Obstacle>;
+
 	/**
-	 * @brief Constructor based on a position and a collision penalty.
+	 * @brief Constructor.
+	 *
+	 * @param[in] pos The position of the obstacle.
+	 * @param[in] size The diameter of the obstacle.
+	 * @param[in] coll_penalty The amount of lives the player loses on collision with the obstacle.
 	 */
-	Obstacle(const Vec2D& pos, const int coll_penalty);
+	Obstacle(const utils::Vec2D& pos, const float size, const int coll_penalty);
 
 	/**
 	 * @brief Get the amount of lives the player loses on collision.
@@ -33,8 +40,16 @@ public:
 	 */
 	void set_penalty(const int penalty);
 
-};
+	/**
+	 * @brief Perform a game tick.
+	 */
+	void do_game_tick(void) override;
 
+	/**
+	 * @brief Retrieve textual representation of the obstacle.
+	 */
+	const std::string to_string(void) const override;
+};
 
 }} // namespace game::entity
 

@@ -1,0 +1,16 @@
+{
+    
+    "KEY_UP": 25,
+    "KEY_DOWN": 18,
+    "KEY_LEFT": 16,
+    "KEY_RIGHT": 3,
+    "KEY_QUIT": 26,
+    "KEY_SHOOT": 27,
+
+    "SHOW_HITBOX": true,
+
+    "LEVEL_LIST": [
+        "first.json",
+        "second.json"
+    ]
+}

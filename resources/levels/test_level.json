@@ -1,39 +1,65 @@
 {
+	"MaxXCoord" : 12.0,
+	"MaxYCoord" : 9.0,
+	
 	"PlayerData" : {
 	    "Symbol":"P",
-		"Sprite": "./some_sprite.png",
-		"MaxSpeed" : 2.0,
-		"Lives" : 5
+		"Sprite": "./resources/textures/playership.png",
+	    "Size"  : 1.5,
+	    "BulletSpeed" : 0.5,
+	    "BulletSize": 0.3,
+		"MaxShotsPerSecond": 5.0,
+		"Lives" : 5,
+		"Speed" : 0.03
 	},
+	
+	"FinishLine" : {
+		"Symbol": "F",
+		"Sprite": "./resources/textures/finish.png",
+		"Size": 1.0
+	},
+	
 	"EnemyTypes" : [
 		{
-			"Symbol": "E1",
-			"Direction" : [5.0, 1.0],
-			"Sprite": "./enemy_sprite.png",
-			"AttackDamage": 2
+			"Symbol": "A",
+			"Sprite": "./resources/textures/enemyship.png",
+	    	"Size"  : 0.6,
+			"Direction" : [-0.1, 0.0],
+		    "BulletSpeed" : 0.1,
+		    "BulletSize": 0.2,
+			"MaxShotsPerSecond": 0.5,
+			"AttackDamage": 0
 		},
 		{
-			"Symbol": "E2",
-			"Direction" : [5.0, 3.0],
-			"Sprite": "./enemy_sprite.png",
-			"AttackDamage": 5
+			"Symbol": "B",
+			"Sprite": "./resources/textures/enemyship.png",
+	    	"Size"  : 0.6,
+			"Direction" : [-0.1, 0.00],
+		    "BulletSpeed" : 0.1,
+		    "BulletSize": 0.2,
+			"MaxShotsPerSecond": 0.0,
+			"AttackDamage": 0
 		}
 	],
 	"ObstacleTypes" : [
 		{
 			"Symbol": "W",
+	    	"Size"  : 1.0,
 			"CollisionPenalty": 2,
-			"Sprite": "./obstacle_sprite.png"
+			"Sprite": "./resources/textures/obstacle.png"
 		}
 	
 	],
 	
 	"LevelGrid": [
-					["W", "W", "W" ],
-					[".", ".", "." ],
-					["P", ".", "E1"],
-					[".", ".", "." ],
-					["W", "W", "W" ],
-					["W", "W", "W" ]
+					["W", "W", "W",  "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W" ],
+					["W", ".", ".",  ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "W" ],
+					["W", ".", ".",  "B", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "F", "W" ],
+					["W", ".", ".",  ".", ".", ".", "A", ".", ".", ".", ".", ".", ".", "A", ".", ".", ".", ".", "F", "W" ],
+					["W", ".", "P",  ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "F", "W" ],
+					["W", ".", ".",  ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "F", "W" ],
+					["W", ".", ".",  ".", ".", ".", ".", ".", ".", ".", ".", "B", ".", ".", ".", ".", ".", ".", ".", "W" ],
+					["W", ".", ".",  ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "W" ],
+					["W", "W", "W",  "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W" ]
 	]
 }

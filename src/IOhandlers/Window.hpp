@@ -2,10 +2,10 @@
 // @brief Header file for Window class.
 //=================================================
 
-
 #ifndef INCLUDED_IOHANDLERS_WINDOW_HPP
 #define INCLUDED_IOHANDLERS_WINDOW_HPP
 
+#include "../utils/Vec2D.hpp"
 #include <SFML/Graphics.hpp>
 
 namespace game {
@@ -48,6 +48,16 @@ public:
 	 * @brief Update the view.
 	 */
 	void update_view(void);
+
+	/**
+	 * @brief Retrieve the width of the window in pixels.
+	 */
+	unsigned int get_width(void) const;
+
+	/**
+	 * @brief Retrieve the height of the window in pixels.
+	 */
+	unsigned int get_height(void) const;
 
 	/**
 	 * @brief Swaps the buffers.

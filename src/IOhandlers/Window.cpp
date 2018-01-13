@@ -28,6 +28,16 @@ void Window::update_view(void)
 	m_window.setView(sf::View{sf::FloatRect{0,0, m_window.getSize().x, m_window.getSize().y}});
 }
 
+unsigned int Window::get_width(void) const
+{
+	return m_window.getSize().x;
+}
+
+unsigned int Window::get_height(void) const
+{
+	return m_window.getSize().y;
+}
+
 void Window::swap_buffers(void)
 {
 	m_window.display();

@@ -6,7 +6,7 @@
 #define INCLUDED_MISC_SINGLETON_HPP
 
 namespace game {
-namespace misc {
+namespace utils {
 
 /**
  * @brief Base class for Singletons.

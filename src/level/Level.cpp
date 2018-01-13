@@ -19,8 +19,14 @@ using nlohmann::json;
 namespace game {
 namespace level {
 
-Level::Level(const unsigned int width, const unsigned int height)
-	: m_width{width}, m_height{height}
+Level::Level(const unsigned int width,
+			 const unsigned int height,
+			 const float max_x,
+			 const float max_y)
+	: m_width{width},
+	  m_height{height},
+	  m_max_x_coord_on_screen{max_x},
+	  m_max_y_coord_on_screen{max_y}
 {}
 
 unsigned int Level::get_height(void) const
@@ -33,9 +39,19 @@ unsigned int Level::get_width(void) const
 	return m_width;
 }
 
-void Level::add_entity(LevelEntity::UnqPtr entity_ptr)
+float Level::get_max_x_coord(void) const
 {
-	m_data.push_back(std::move(entity_ptr));
+	return m_max_x_coord_on_screen;
+}
+
+float Level::get_max_y_coord(void) const
+{
+	return m_max_y_coord_on_screen;
+}
+
+void Level::add_entity(const LevelEntity::ShrPtr& entity_ptr)
+{
+	m_data.push_back(entity_ptr);
 }
 
 const Level::ConstIterator Level::begin(void) const
