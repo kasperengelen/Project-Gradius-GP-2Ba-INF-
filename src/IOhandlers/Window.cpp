@@ -10,7 +10,7 @@ namespace IOhandlers {
 Window::Window(const std::string& window_title,
 		               const unsigned int dim_width,
 					   const unsigned int dim_height)
-	: m_window{sf::VideoMode{dim_width, dim_height}, window_title}
+	: m_window{sf::VideoMode{dim_width, dim_height}, window_title, sf::Style::Titlebar | sf::Style::Close}
 {}
 
 void Window::clear(void)

@@ -28,7 +28,7 @@
 		    "BulletSpeed" : 0.1,
 		    "BulletSize": 0.3,
 			"MaxShotsPerSecond": 0.5,
-			"AttackDamage": 3
+			"AttackDamage": 1
 		},
 		{
 			"Symbol": "B",
@@ -38,7 +38,7 @@
 		    "BulletSpeed" : 0.1,
 		    "BulletSize": 0.2,
 			"MaxShotsPerSecond": 0.0,
-			"AttackDamage": 3
+			"AttackDamage": 1
 		}
 	],
 	"ObstacleTypes" : [
