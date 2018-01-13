@@ -13,6 +13,7 @@ using game::entity::Player;
 using game::entity::Enemy;
 using game::entity::Obstacle;
 using game::entity::Bullet;
+using game::entity::FinishLine;
 
 namespace game {
 namespace MVC {
@@ -161,6 +162,8 @@ void GameModel::M_handle_collision_detection(void)
 	//		-> kill bullet
 	// obstacle - enemy
 	//		-> kill enemy
+	// finishline - player
+	//		-> set level complete
 	// enemy - player bullet
 	//		-> kill enemy
 	//		-> kill bullet
@@ -279,6 +282,15 @@ void GameModel::M_handle_collision_detection(void)
 		m_bullets_enemy.erase(std::remove_if(m_bullets_enemy.begin(), m_bullets_enemy.end(), cond), m_bullets_enemy.end());
 	}
 
+	// PLAYER <=> FINISH LINE
+	for(const FinishLine::ShrPtr& finishline_ptr : m_finish_lines)
+	{
+		if(collides(*finishline_ptr, *m_player))
+		{
+			m_level_complete = true;
+		}
+	}
+
 	// do this after all checks so that bullets can still be used for other checks
 	if(kill_all_bullets)
 	{
@@ -326,6 +338,22 @@ void GameModel::clear_entities(void)
 bool GameModel::game_over(void) const
 {
 	return m_game_over;
+}
+
+bool GameModel::level_complete(void) const
+{
+	return m_level_complete;
+}
+
+bool GameModel::get_game_won(void) const
+{
+	return m_game_won;
+}
+
+void GameModel::set_game_won(void)
+{
+	m_game_won = true;
+	M_notify_observers(std::make_shared<observer::GameWon>());
 }
 
 void GameModel::debug_kill_player(void)

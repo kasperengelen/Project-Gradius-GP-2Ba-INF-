@@ -11,6 +11,8 @@
 #include "../IOhandlers/IOEvent.hpp"
 #include "../level/Level.hpp"
 
+#include <queue>
+
 namespace game {
 namespace MVC {
 
@@ -25,6 +27,9 @@ private:
 
 	// TODO level file queue
 	// TODO function for "load_next_level()"
+
+	// contains a queue of filenames of level JSON files.
+	std::queue<std::string> m_level_queue;
 
 public:
 	/**
@@ -47,8 +52,17 @@ public:
 	 */
 	void handle_event(const IOhandlers::IOEvent& event);
 
-	// TODO remove debug method
-	void debug_load_level(const level::Level& level);
+	/**
+	 * @brief Specify the filenames of the JSON files that are used to load the levels.
+	 * The first level in the vector will be played first, the second after that, etc.
+	 */
+	void set_level_queue(const std::vector<std::string>& level_list);
+
+	/**
+	 * @brief Load the next level in the level queue.
+	 * If the last level is over, the game is won.
+	 */
+	void load_next_level(void);
 };
 
 }} // namespace game::MVC

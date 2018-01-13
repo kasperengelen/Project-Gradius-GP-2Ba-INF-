@@ -8,6 +8,7 @@
 #include "../utils/CoordTransform.hpp"
 #include "../utils/Settings.hpp"
 #include "../level/LevelEntity.hpp"
+#include "../level/LevelParser.hpp"
 #include <iostream>
 
 using game::IOhandlers::Keyboard;
@@ -42,9 +43,11 @@ void GameController::handle_tick(void)
 {
 	using IOhandlers::Keyboard;
 
-	if(m_model_ptr->game_over())
+	if(m_model_ptr->game_over() or m_model_ptr->get_game_won())
 	{
-		// nothing to do since game is over
+		return;
+	} else if (m_model_ptr->level_complete()) {
+		this->load_next_level();
 		return;
 	}
 
@@ -117,24 +120,41 @@ void GameController::handle_event(const IOEvent& event)
 	default:
 		break;
 	}
-
 }
 
-void GameController::debug_load_level(const Level& level)
+void GameController::set_level_queue(const std::vector<std::string>& level_list)
 {
+	for(const auto& level_name : level_list)
+	{
+		m_level_queue.push(level_name);
+	}
+}
+
+void GameController::load_next_level(void)
+{
+	// check if there are any more levels to player
+	if(m_level_queue.empty())
+	{
+		m_model_ptr->set_game_won();
+		return;
+	}
+
+	const Level next_level = level::parse_level(m_level_queue.front());
+	m_level_queue.pop();
+
 	// clear all entities in model
 	m_model_ptr->clear_entities();
 
 	// update CoordTransform
 
-	utils::CoordTransform::get_instance().update_level_width(level.get_width());
-	utils::CoordTransform::get_instance().update_level_height(level.get_height());
+	utils::CoordTransform::get_instance().update_level_width(next_level.get_width());
+	utils::CoordTransform::get_instance().update_level_height(next_level.get_height());
 
-	utils::CoordTransform::get_instance().set_max_x_coord(level.get_max_x_coord());
-	utils::CoordTransform::get_instance().set_max_y_coord(level.get_max_y_coord());
+	utils::CoordTransform::get_instance().set_max_x_coord(next_level.get_max_x_coord());
+	utils::CoordTransform::get_instance().set_max_y_coord(next_level.get_max_y_coord());
 
 	// iterate over level and add each entity
-	for(const auto& level_entity : level)
+	for(const auto& level_entity : next_level)
 	{
 		// extract info out of entity
 		//		-> add entity to model

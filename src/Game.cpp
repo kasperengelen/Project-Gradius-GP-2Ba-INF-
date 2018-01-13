@@ -40,12 +40,12 @@ void Game::run(void)
 	model->attach_observer(view);
 	GameController controller{model, view};
 
-	level::Level level1 = level::parse_level("./resources/levels/test_level.json");
+	controller.set_level_queue(utils::Settings::get_instance().get_level_json_filenames());
+	controller.load_next_level(); // load first level.
 
-
-	controller.debug_load_level(level1);
-
-	game::IOhandlers::Window window{"Gradius", 800, 600};
+	game::IOhandlers::Window window{"Gradius",
+									utils::Settings::get_instance().get_screen_width(),
+									utils::Settings::get_instance().get_screen_height()};
 	utils::CoordTransform::get_instance().update_screen_size(window.get_width(), window.get_height());
 	window.clear();
 

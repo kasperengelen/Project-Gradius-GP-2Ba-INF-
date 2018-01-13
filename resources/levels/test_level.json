@@ -15,7 +15,7 @@
 	
 	"FinishLine" : {
 		"Symbol": "F",
-		"Sprite": "./resources/textures/finish.png",
+		"Sprite": "./resources/textures/finishline.png",
 		"Size": 1.0
 	},
 	
@@ -28,7 +28,7 @@
 		    "BulletSpeed" : 0.1,
 		    "BulletSize": 0.2,
 			"MaxShotsPerSecond": 0.5,
-			"AttackDamage": 0
+			"AttackDamage": 3
 		},
 		{
 			"Symbol": "B",
@@ -38,7 +38,7 @@
 		    "BulletSpeed" : 0.1,
 		    "BulletSize": 0.2,
 			"MaxShotsPerSecond": 0.0,
-			"AttackDamage": 0
+			"AttackDamage": 3
 		}
 	],
 	"ObstacleTypes" : [

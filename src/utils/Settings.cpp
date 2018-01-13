@@ -35,6 +35,9 @@ void Settings::load_from_file(const std::string& filename)
 
 		m_show_hitbox = json_data.at("SHOW_HITBOX").get<bool>();
 
+		m_screen_width = json_data.at("SCREEN_WIDTH").get<unsigned int>();
+		m_screen_height = json_data.at("SCREEN_HEIGHT").get<unsigned int>();
+
 	}
 	catch(...)
 	{
@@ -76,6 +79,16 @@ IOhandlers::Keyboard::KeyCode Settings::get_key_quit(void) const
 bool Settings::get_show_hitboxes(void) const
 {
 	return m_show_hitbox;
+}
+
+unsigned int Settings::get_screen_width(void) const
+{
+	return m_screen_width;
+}
+
+unsigned int Settings::get_screen_height(void) const
+{
+	return m_screen_height;
 }
 
 const std::vector<std::string>& Settings::get_level_json_filenames(void) const

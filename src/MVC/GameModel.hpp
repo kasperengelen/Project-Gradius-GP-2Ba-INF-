@@ -51,8 +51,14 @@ private:
 	// list of player bullets
 	std::vector<entity::Bullet::ShrPtr> m_bullets_player;
 
-	// keeps track of whether the player has lost;
+	// keeps track of whether the player has lost.
 	bool m_game_over{false};
+
+	// keeps track of whether the player has won.
+	bool m_game_won{false};
+
+	// keeps track of whether the level is completed.
+	bool m_level_complete{false};
 
 	// list of finish lines
 	std::vector<entity::FinishLine::ShrPtr> m_finish_lines;
@@ -140,6 +146,21 @@ public:
 	 * @brief Determine if the player has lost.
 	 */
 	bool game_over(void) const;
+
+	/**
+	 * @brief Determine if the level is complete.
+	 */
+	bool level_complete(void) const;
+
+	/**
+	 * @brief Determine whether the player has won the game.
+	 */
+	bool get_game_won(void) const;
+
+	/**
+	 * @brief Notify the model that there are no more levels to be played.
+	 */
+	void set_game_won(void);
 
 	// TODO remove debug
 	void debug_kill_player(void);

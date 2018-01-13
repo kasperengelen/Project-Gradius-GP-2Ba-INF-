@@ -138,12 +138,13 @@ void GameView::handle_event(const observer::Event::ShrPtr& event_ptr)
 		m_player_lives_text.set_string("Lives: " + std::to_string(pd_ptr->new_lives));
 	}
 	// check for game over
-	else if (const EntityDeath* ed_ptr = dynamic_cast<const EntityDeath*>(p))
-	{
-	}
 	else if (const GameOver* go_ptr = dynamic_cast<const GameOver*>(p))
 	{
 		m_game_over = true;
+	}
+	else if (const GameWon* gw_ptr = dynamic_cast<const GameWon*>(p))
+	{
+		m_game_won = true;
 	}
 	// other events arent important
 	else

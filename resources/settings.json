@@ -1,5 +1,8 @@
 {
     
+    "SCREEN_WIDTH" : 800,
+    "SCREEN_HEIGHT": 600,
+    
     "KEY_UP": 25,
     "KEY_DOWN": 18,
     "KEY_LEFT": 16,
@@ -10,7 +13,7 @@
     "SHOW_HITBOX": true,
 
     "LEVEL_LIST": [
-        "first.json",
-        "second.json"
+        "./resources/levels/first.json",
+        "./resources/levels/second.json"
     ]
 }

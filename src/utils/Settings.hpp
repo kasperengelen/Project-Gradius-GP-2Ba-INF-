@@ -36,6 +36,9 @@ private:
 
 	bool m_show_hitbox;
 
+	unsigned int m_screen_width;
+	unsigned int m_screen_height;
+
 public:
 	/**
 	 * @brief Load settings data from the specified filename;
@@ -76,6 +79,16 @@ public:
 	 * @brief Determine whether hitboxes of entities need to be rendered.
 	 */
 	bool get_show_hitboxes(void) const;
+
+	/**
+	 * @brief Retrieve the screen width in pixels.
+	 */
+	unsigned int get_screen_width(void) const;
+
+	/**
+	 * @brief Retrieve the screen height in pixels.
+	 */
+	unsigned int get_screen_height(void) const;
 
 	/**
 	 * @brief Retrieve the filenames for the level JSON files.

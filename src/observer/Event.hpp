@@ -59,10 +59,10 @@ struct PlayerLivesUpdate : public GameEvent
 	{}
 };
 
-struct EntityDeath : public GameEvent
+struct GameOver : public GameEvent
 {};
 
-struct GameOver : public GameEvent
+struct GameWon : public GameEvent
 {};
 
 struct EntityEvent : public Event
