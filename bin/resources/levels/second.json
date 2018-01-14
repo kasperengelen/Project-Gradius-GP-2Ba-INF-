@@ -1,0 +1,71 @@
+{
+	"MaxXCoord" : 12.0,
+	"MaxYCoord" : 9.0,
+	
+	"PlayerData" : {
+	    "Symbol":"P",
+		"Sprite": "./resources/textures/stardestroyer.png",
+	    "Size"  : 1.5,
+	    "BulletSpeed" : 0.5,
+	    "BulletSize": 0.4,
+		"MaxShotsPerSecond": 3.0,
+		"Lives" : 7,
+		"Speed" : 0.03
+	},
+	
+	"FinishLine" : {
+		"Symbol": "F",
+		"Sprite": "./resources/textures/finishline.png",
+		"Size": 1.0
+	},
+	
+	"EnemyTypes" : [
+		{
+			"Symbol": "A",
+			"Sprite": "./resources/textures/ghost_freighter.png",
+	    	"Size"  : 0.7,
+			"Direction" : [-0.1, 0.0],
+		    "BulletSpeed" : 0.1,
+		    "BulletSize": 0.3,
+			"MaxShotsPerSecond": 0.5,
+			"AttackDamage": 2
+		},
+		{
+			"Symbol": "B",
+			"Sprite": "./resources/textures/bwing.png",
+	    	"Size"  : 0.6,
+			"Direction" : [-0.1, 0.0],
+		    "BulletSpeed" : 0.1,
+		    "BulletSize": 0.2,
+			"MaxShotsPerSecond": 0.0,
+			"AttackDamage": 2
+		}
+	],
+	"ObstacleTypes" : [
+		{
+			"Symbol": "W",
+	    	"Size"  : 0.9,
+			"CollisionPenalty": 2,
+			"Sprite": "./resources/textures/asteroid.png"
+		},
+        {
+			"Symbol": "O",
+	    	"Size"  : 0.7,
+			"CollisionPenalty": 1,
+			"Sprite": "./resources/textures/construction_module.png"
+		}
+	
+	],
+	
+	"LevelGrid": [
+					["W", "W", "W",  "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W" ],
+					["W", ".", ".",  ".", ".", "A", ".", ".", "O", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "W" ],
+					["W", ".", ".",  "B", ".", ".", "A", ".", ".", ".", ".", ".", "O", "O", ".", ".", "B", ".", "F", "W" ],
+					["W", ".", ".",  ".", ".", "B", "A", ".", ".", ".", "B", ".", ".", "A", ".", ".", ".", ".", "F", "W" ],
+					["W", ".", "P",  ".", "O", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "F", "W" ],
+					["W", ".", ".",  ".", ".", "B", ".", ".", "O", ".", ".", ".", ".", ".", ".", ".", ".", ".", "F", "W" ],
+					["W", ".", ".",  ".", "B", ".", ".", ".", "A", ".", ".", "B", "O", ".", "O", "A", ".", "B", ".", "W" ],
+					["W", ".", ".",  ".", ".", "B", ".", "O", ".", ".", ".", ".", ".", "O", ".", ".", ".", ".", ".", "W" ],
+					["W", "W", "W",  "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W" ]
+	]
+}

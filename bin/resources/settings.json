@@ -1,0 +1,24 @@
+{
+    
+    "SCREEN_WIDTH" : 800,
+    "SCREEN_HEIGHT": 600,
+    
+    "KEY_UP": 25,
+    "KEY_DOWN": 18,
+    "KEY_LEFT": 16,
+    "KEY_RIGHT": 3,
+    "KEY_QUIT": 26,
+    "KEY_SHOOT": 27,
+
+    "FONT": "./resources/font/arial.ttf",
+    "PLAYER_BULLET_SPRITE": "./resources/textures/player_bullet.png",
+    "ENEMY_BULLET_SPRITE": "./resources/textures/enemy_bullet.png",
+
+    "SHOW_HITBOX": false,
+
+    "LEVEL_LIST": [
+        "./resources/levels/first.json",
+        "./resources/levels/second.json",
+        "./resources/levels/third.json"
+    ]
+}
