@@ -41,15 +41,18 @@ void Game::run(void)
 	model->attach_observer(view);
 	GameController controller{model, view};
 
+	/* LOAD LEVELS */
 	controller.set_level_queue(utils::Settings::get_instance().get_level_json_filenames());
 	controller.load_next_level(); // load first level.
 
+	/* CREATE WINDOW */
 	game::IOhandlers::Window window{"Gradius",
 									utils::Settings::get_instance().get_screen_width(),
 									utils::Settings::get_instance().get_screen_height()};
 	utils::CoordTransform::get_instance().update_screen_size(window.get_width(), window.get_height());
 	window.clear();
 
+	/* BEGIN LOOP */
 	game::utils::LoopTimer timer{20};
 	bool running = true;
 	while(running)

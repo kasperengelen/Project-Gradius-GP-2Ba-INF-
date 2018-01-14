@@ -8,11 +8,11 @@
 namespace game
 {
 
+/**
+ * @brief Class that contains the game.
+ */
 class Game
 {
-private:
-	// settings container
-
 public:
 	/**
 	 * @brief Constructor.
